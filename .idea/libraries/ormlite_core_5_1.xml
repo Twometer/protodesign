@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="ormlite-core-5.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/ormlite-core-5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ormlite-jdbc-5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.21.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/taglibs-standard-compat-1.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/taglibs-standard-impl-1.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/taglibs-standard-jstlel-1.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/taglibs-standard-spec-1.2.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

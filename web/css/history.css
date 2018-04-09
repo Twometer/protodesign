@@ -1,0 +1,10 @@
+table, th, td, tr {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+tr {
+    cursor: pointer;
+}

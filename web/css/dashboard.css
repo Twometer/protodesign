@@ -1,0 +1,13 @@
+.login-header {
+    color: white;
+    margin-right: 10px;
+}
+
+.logo-header {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.logo-header-text {
+    display: inline;
+}
