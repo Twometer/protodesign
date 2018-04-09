@@ -1,10 +1,11 @@
-package de.twometer.protodesign.vpsl;
+package de.twometer.protodesign.parsers;
 
-public class VPSLParser {
+import static de.twometer.protodesign.util.ParserUtils.buildHtmlTag;
+import static de.twometer.protodesign.util.ParserUtils.startsAt;
 
-
-    public static String process(String html) {
-
+public class VPSLParser implements IParser {
+    @Override
+    public String process(String html) {
         boolean inCodeBlock = false;
 
         boolean inDataType = false;
@@ -64,21 +65,5 @@ public class VPSLParser {
             } else stringBuilder.append(chars[i]);
         }
         return stringBuilder.toString();
-    }
-
-    private static boolean startsAt(char[] a, String target, int idx) {
-        char[] b = target.toCharArray();
-        int j = 0;
-        for (int i = idx; i < a.length; i++) {
-            if (j >= b.length) break;
-            if (a[i] != b[j])
-                return false;
-            j++;
-        }
-        return true;
-    }
-
-    private static String buildHtmlTag(String clazz, boolean open) {
-        return open ? String.format("<span class=\"%s\">", clazz) : "</span>";
     }
 }

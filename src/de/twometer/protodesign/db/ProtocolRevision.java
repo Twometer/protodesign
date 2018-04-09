@@ -2,11 +2,8 @@ package de.twometer.protodesign.db;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import de.twometer.protodesign.parsers.ParserManager;
 import de.twometer.protodesign.util.Utils;
-import de.twometer.protodesign.vpsl.VPSLParser;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 
 import java.sql.SQLException;
 
@@ -77,11 +74,7 @@ public class ProtocolRevision {
     }
 
     public String getHtmlContent() {
-        String content = getContents();
-        Parser parser = Parser.builder().build();
-        Node document = parser.parse(content);
-        HtmlRenderer renderer = HtmlRenderer.builder().escapeHtml(false).build();
-        return VPSLParser.process(renderer.render(document));
+        return ParserManager.getInstance().parse(getContents());
     }
 
 }
