@@ -91,7 +91,7 @@
 
     function reload() {
         var content = contentCtl.val();
-        $.post("/format", content, function (data) {
+        $.post("format", content, function (data) {
             $("#preview").html(data);
         });
     }
