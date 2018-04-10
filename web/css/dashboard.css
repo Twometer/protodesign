@@ -11,3 +11,9 @@
 .logo-header-text {
     display: inline;
 }
+
+#preview {
+    padding: 10px;
+    overflow-y: auto;
+    border: 1px solid #CED4DA;
+}

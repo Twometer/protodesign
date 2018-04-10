@@ -18,6 +18,7 @@
     <link rel="icon" href="assets/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/vpsl.css">
 </head>
 <body>
 <header>
@@ -34,7 +35,7 @@
             </a>
         </form>
     </nav>
-    <main role="main" class="container">
+    <main role="main" class="container-fluid">
         <div class="logo-header">
             <div class="row">
                 <div class="col-lg-12">
@@ -46,9 +47,16 @@
             <input name="protocolId" type="hidden" value="${protocol.protocolId}">
             <div class="form-group">
                 <label for="inputContent">Protocol content</label>
-                <textarea name="content" class="form-control" id="inputContent" rows="25"
-                          placeholder="Enter your protocol content here. You can use Markdown and VPSL"
-                          required>${latestRevision.contents}</textarea>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <textarea name="content" class="form-control" id="inputContent" rows="25"
+                                  placeholder="Enter your protocol content here. You can use Markdown and VPSL"
+                                  required>${latestRevision.contents}</textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="preview"></div>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="inputMessage">Commit message</label>
@@ -63,4 +71,34 @@
     </main>
 </header>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    var contentCtl = $("#inputContent");
+    var previewCtl = $("#preview");
+
+    previewCtl.outerHeight(contentCtl.innerHeight());
+
+    contentCtl.on('scroll', scrollUpdate);
+
+    contentCtl.on('input', function (e) {
+        reload();
+        scrollUpdate();
+    });
+
+    $(reload());
+
+    function reload() {
+        var content = contentCtl.val();
+        $.post("/format", content, function (data) {
+            $("#preview").html(data);
+        });
+    }
+
+    function scrollUpdate() {
+        var pcx = contentCtl.scrollTop() / (contentCtl[0].scrollHeight - contentCtl.innerHeight());
+        previewCtl.scrollTop(pcx * (previewCtl[0].scrollHeight - previewCtl.innerHeight()));
+    }
+</script>
 </html>
