@@ -55,12 +55,12 @@ public class VPSLParser implements IParser {
                     inCondition = true;
                 }
 
+                stringBuilder.append(chars[i]);
+
                 if (inCondition && chars[i] == ')') {
                     stringBuilder.append(buildHtmlTag(null, false));
                     inCondition = false;
                 }
-
-                stringBuilder.append(chars[i]);
 
             } else stringBuilder.append(chars[i]);
         }
