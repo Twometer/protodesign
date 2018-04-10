@@ -83,11 +83,19 @@
     contentCtl.on('scroll', scrollUpdate);
 
     contentCtl.on('input', function (e) {
-        reload();
         scrollUpdate();
     });
 
     $(reload());
+
+    var lastVal;
+
+    setInterval(function(e){
+        if(contentCtl.val() !== lastVal) {
+            reload();
+            lastVal = contentCtl.val();
+        }
+    }, 2000);
 
     function reload() {
         var content = contentCtl.val();
