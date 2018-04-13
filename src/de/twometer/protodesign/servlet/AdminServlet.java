@@ -20,7 +20,7 @@ public class AdminServlet extends HttpServlet {
         User user = SessionManager.authenticate(req, resp);
         if (user == null) return;
         if (!SessionManager.getAdminAccounts().contains(user.email)) {
-            resp.sendError(401);
+            resp.sendError(403);
             return;
         }
         sendDocument(user, req, resp);
@@ -31,7 +31,7 @@ public class AdminServlet extends HttpServlet {
         User user = SessionManager.authenticate(req, resp);
         if (user == null) return;
         if (!SessionManager.getAdminAccounts().contains(user.email)) {
-            resp.sendError(401);
+            resp.sendError(403);
             return;
         }
 
