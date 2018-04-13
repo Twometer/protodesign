@@ -1,8 +1,10 @@
 package de.twometer.protodesign.servlet;
 
-import de.twometer.protodesign.db.*;
+import de.twometer.protodesign.db.DbAccess;
+import de.twometer.protodesign.db.Protocol;
+import de.twometer.protodesign.db.ProtocolRevision;
+import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
-import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
-import static de.twometer.protodesign.util.Utils.loginFailed;
 
 @WebServlet("/createRevision")
 public class CreateRevisionServlet extends HttpServlet {
@@ -30,28 +30,11 @@ public class CreateRevisionServlet extends HttpServlet {
         }
 
         try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
+            User user = SessionManager.authenticate(req, resp);
+            if (user == null) return;
 
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
-
-            Protocol protocol = DbAccess.getProtocolDao().queryForId(id);
-            if (protocol == null) {
-                resp.sendError(404);
-                return;
-            }
-
-            if (!Utils.mayAccess(userId, protocol)) {
-                resp.sendError(403);
-                return;
-            }
+            Protocol protocol = SessionManager.getProtocol(resp, user, id);
+            if (protocol == null) return;
 
             List<ProtocolRevision> rev = DbAccess.getProtocolRevisionDao().queryBuilder().where().eq("protocolId", protocol.protocolId).and().eq("revisionNo", protocol.latestRevision).query();
 
@@ -84,24 +67,11 @@ public class CreateRevisionServlet extends HttpServlet {
         }
 
         try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
+            User user = SessionManager.authenticate(req, resp);
+            if (user == null) return;
 
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
-
-            Protocol protocol = DbAccess.getProtocolDao().queryForId(id);
-
-            if (protocol == null) {
-                resp.sendError(404);
-                return;
-            }
+            Protocol protocol = SessionManager.getProtocol(resp, user, id);
+            if (protocol == null) return;
 
             protocol.latestRevision++;
             protocol.lastActive = System.currentTimeMillis();

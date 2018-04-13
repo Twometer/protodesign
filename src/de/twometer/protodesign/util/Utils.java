@@ -6,6 +6,7 @@ import de.twometer.protodesign.db.ProtocolShareInfo;
 import de.twometer.protodesign.db.User;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -64,5 +65,11 @@ public class Utils {
             return found;
         }
         return true;
+    }
+
+    public static String getFilePath(String fileName) {
+        String temp = new File(fileName).getAbsolutePath().replace("\\", "/");
+        if (temp.startsWith("/")) temp = "/opt/tomcat/webapps/" + fileName;
+        return temp;
     }
 }

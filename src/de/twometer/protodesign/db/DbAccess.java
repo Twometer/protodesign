@@ -5,8 +5,8 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import de.twometer.protodesign.util.Utils;
 
-import java.io.File;
 import java.sql.SQLException;
 
 public class DbAccess {
@@ -20,9 +20,8 @@ public class DbAccess {
     private static void openConnection() throws SQLException {
         if (connectionSource == null || userDao == null || protocolDao == null || protocolShareInfoDao == null || protocolRevisionDao == null) {
 
-            String x = new File("proto-design-storage.db").getAbsolutePath().replace("\\", "/");
-            if (x.startsWith("/")) x = "/opt/tomcat/webapps/proto-design-storage.db";
-            String databaseUrl = "jdbc:sqlite:" + x;
+
+            String databaseUrl = "jdbc:sqlite:" + Utils.getFilePath("proto-design-storage.db");
 
             connectionSource = new JdbcConnectionSource(databaseUrl);
 

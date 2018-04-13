@@ -1,6 +1,9 @@
 package de.twometer.protodesign.servlet;
 
-import de.twometer.protodesign.db.*;
+import de.twometer.protodesign.db.DbAccess;
+import de.twometer.protodesign.db.Protocol;
+import de.twometer.protodesign.db.ProtocolShareInfo;
+import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
 
 import javax.servlet.ServletException;
@@ -15,46 +18,23 @@ import java.util.List;
 import java.util.Random;
 
 import static de.twometer.protodesign.util.Utils.findUser;
-import static de.twometer.protodesign.util.Utils.loginFailed;
 
 @WebServlet("/create")
 public class CreateProtocolServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
-
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
-
+        User user = SessionManager.authenticate(req, resp);
+        if(user != null) {
             req.setAttribute("username", user.email);
             req.getRequestDispatcher("/create.jsp").forward(req, resp);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
-
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
+            User user = SessionManager.authenticate(req, resp);
+            if(user == null) return;;
 
             String title = req.getParameter("title");
             String desc = req.getParameter("description");
