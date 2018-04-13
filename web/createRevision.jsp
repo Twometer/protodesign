@@ -74,39 +74,5 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-<script>
-    var contentCtl = $("#inputContent");
-    var previewCtl = $("#preview");
-
-    previewCtl.outerHeight(contentCtl.innerHeight());
-
-    contentCtl.on('scroll', scrollUpdate);
-
-    contentCtl.on('input', function (e) {
-        scrollUpdate();
-    });
-
-    $(reload());
-
-    var lastVal;
-
-    setInterval(function(e){
-        if(contentCtl.val() !== lastVal) {
-            reload();
-            lastVal = contentCtl.val();
-        }
-    }, 2000);
-
-    function reload() {
-        var content = contentCtl.val();
-        $.post("format", content, function (data) {
-            $("#preview").html(data);
-        });
-    }
-
-    function scrollUpdate() {
-        var pcx = contentCtl.scrollTop() / (contentCtl[0].scrollHeight - contentCtl.innerHeight());
-        previewCtl.scrollTop(pcx * (previewCtl[0].scrollHeight - previewCtl.innerHeight()));
-    }
-</script>
+<script src="js/livepreview.js"></script>
 </html>
