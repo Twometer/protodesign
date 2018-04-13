@@ -19,9 +19,9 @@ public class DbAccess {
 
     private static void openConnection() throws SQLException {
         if (connectionSource == null || userDao == null || protocolDao == null || protocolShareInfoDao == null || protocolRevisionDao == null) {
-
-
             String databaseUrl = "jdbc:sqlite:" + Utils.getFilePath("proto-design-storage.db");
+
+            System.out.println("Database URL = " + databaseUrl);
 
             connectionSource = new JdbcConnectionSource(databaseUrl);
 

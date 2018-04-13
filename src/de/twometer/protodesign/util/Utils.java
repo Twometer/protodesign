@@ -68,8 +68,7 @@ public class Utils {
     }
 
     public static String getFilePath(String fileName) {
-        String temp = new File(fileName).getAbsolutePath().replace("\\", "/");
-        if (temp.startsWith("/")) temp = "/opt/tomcat/webapps/" + fileName;
-        return temp;
+        if (System.getProperty("os.name").startsWith("Windows")) return new File(fileName).getAbsolutePath();
+        else return "/opt/tomcat/webapps/" + fileName;
     }
 }

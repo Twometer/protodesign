@@ -1,6 +1,7 @@
 package de.twometer.protodesign.permissions;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileList<T> {
@@ -13,30 +14,25 @@ public class FileList<T> {
     }
 
     public T get(int idx) {
-        ensureLoaded();
+        load();
         return theList.get(idx);
     }
 
     public void add(T t) {
-        ensureLoaded();
+        load();
         theList.add(t);
         save();
     }
 
     public void remove(T t) {
-        ensureLoaded();
+        load();
         theList.remove(t);
         save();
     }
 
     public boolean contains(T t) {
-        ensureLoaded();
+        load();
         return theList.contains(t);
-    }
-
-    private void ensureLoaded() {
-        if (theList == null)
-            load();
     }
 
     private void save() {
@@ -50,8 +46,9 @@ public class FileList<T> {
     }
 
     private void load() {
-        if (!new File(path).exists()) return;
+        theList = new ArrayList<>();
         try {
+            new File(path).createNewFile();
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
             String line;
             while ((line = reader.readLine()) != null) theList.add((T) line);

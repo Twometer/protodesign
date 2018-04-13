@@ -42,6 +42,7 @@ public class DashboardServlet extends HttpServlet {
 
             protocols.sort((o1, o2) -> -Double.compare(o1.lastActive, o2.lastActive));
 
+            req.setAttribute("isAdmin", SessionManager.getAdminAccounts().contains(user.email));
             req.setAttribute("protocols", protocols);
             req.setAttribute("username", user.email);
             req.getRequestDispatcher("/dashboard.jsp").forward(req, resp);

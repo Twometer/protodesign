@@ -28,6 +28,10 @@
                  class="d-inline-block align-top" alt="">
             Protodesign
         </a>
+        <jsp:useBean id="isAdmin" scope="request" type="java.lang.Boolean"/>
+        <c:if test="${isAdmin}">
+            <a href="admin">Admin access</a>
+        </c:if>
         <form class="form-inline my-2 my-lg-0">
             <span class="login-header">Logged in as ${username}</span>
             <a href="${pageContext.request.contextPath}/login?ref=logoff">
