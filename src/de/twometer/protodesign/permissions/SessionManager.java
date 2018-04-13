@@ -1,4 +1,4 @@
-package de.twometer.protodesign.db;
+package de.twometer.protodesign.permissions;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

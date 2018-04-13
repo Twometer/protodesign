@@ -1,6 +1,7 @@
 package de.twometer.protodesign.servlet;
 
 import de.twometer.protodesign.db.*;
+import de.twometer.protodesign.permissions.SessionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,7 +1,7 @@
 package de.twometer.protodesign.servlet;
 
 import de.twometer.protodesign.db.DbAccess;
-import de.twometer.protodesign.db.SessionManager;
+import de.twometer.protodesign.permissions.SessionManager;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.util.Utils;
 
