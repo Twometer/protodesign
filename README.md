@@ -2,6 +2,9 @@
 Protodesign is VectorData's protocol designing application. It runs on Java and Tomcat Servlets
 and can be reached from the internet.
 
+Although Protodesign is designed as a protocol designer, it can be used for many different purposes
+that need revision-based sharing of (technical) documents between people in a small team.
+
 ## Features
 - Markdown support for protocol specs
 - Supports VectorData Protocol Specification Language
