@@ -40,8 +40,12 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
         if (email != null && password != null && confirmPassword != null && email.trim().length() > 0 && password.trim().length() > 0 && confirmPassword.trim().length() > 0) {
-            if (!(email.equals("twometer@outlook.de") || email.equals("daniel-lerch@live.de"))) {
-                resp.sendError(401);
+            if (!SessionManager.getWhiteList().contains(email)) {
+                req.setAttribute("commonError", true);
+                req.setAttribute("hasPasswordFailed", false);
+                req.setAttribute("hasRegisterFailed", false);
+                req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
+                req.getRequestDispatcher("/register.jsp").forward(req, resp);
                 return;
             }
 
