@@ -7,11 +7,12 @@ and can be reached from the internet.
 - Supports VectorData Protocol Specification Language
 - Collaborate with other Protodesign users on a protocol
 - Revision system (somewhat like `git`)
-
+- Some users can be admins (Configurable in `protodesign-admins.txt`)
+- Administrator panel
+   - Configure the user white list
 ## To Do
-- Admin panel (some users can be specified as admins)
-  - Configurable user white list
-  - Delete/change user passwords etc.
+- Admin panel
+  - Delete users/change user passwords etc.
   - View all created protocols
 - Profile data
   - Change username
