@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="username" scope="request" type="java.lang.String"/>
+<jsp:useBean id="whitelist" scope="request" type="java.util.List<java.lang.String>"/>
 <%--
   Created by IntelliJ IDEA.
   User: Twometer
@@ -42,20 +43,74 @@
             </div>
         </div>
         <h2>User whitelist</h2>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <c:choose>
-                <jsp:useBean id="whitelistEnabled" scope="request" type="java.lang.Boolean"/>
-                <c:when test="${whitelistEnabled}">
-                    <button type="button" class="btn btn-secondary">Disable whitelist</button>
-                </c:when>
-                <c:otherwise>
-                    <button type="button" class="btn btn-secondary">Enable whitelist</button>
-                </c:otherwise>
-            </c:choose>
-            <button type="button" class="btn btn-secondary">Add user</button>
-            <button type="button" class="btn btn-secondary">Remove user</button>
-        </div>
+        <p>
+            Only whitelisted email addresses can register with this Protodesign instance
+        </p>
+        <p>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add user
+            </button>
+        </p>
+        <c:if test="${whitelist.size() > 0}">
+            <table class="table table-hover table-sm table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="user" items="${whitelist}">
+                    <tr>
+                        <td>${user}</td>
+                        <td>
+                            <form class="m-0 p-0" method="POST">
+                                <input type="hidden" name="action" value="whitelistDel">
+                                <input type="hidden" name="username" value="${user}">
+                                <button role="button" class="btn btn-link m-0 p-0">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
+        <c:if test="${whitelist.size() == 0}">
+            <p>The whitelist is empty. Therefore it is disabled.</p>
+        </c:if>
     </main>
 </header>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true" aria-describedby="addModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST">
+                <input type="hidden" name="action" value="whitelistAdd">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add whitelisted user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="email" name="username" placeholder="Username" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add to whitelist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </html>

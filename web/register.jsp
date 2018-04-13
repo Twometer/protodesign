@@ -36,6 +36,10 @@
     <c:if test="${commonError}">
         <p class="username-error">Registration failed</p>
     </c:if>
+    <jsp:useBean id="noWhitelist" scope="request" type="java.lang.Boolean"/>
+    <c:if test="${noWhitelist}">
+        <p class="username-error">You are not whitelisted</p>
+    </c:if>
     <jsp:useBean id="hasRegisterFailed" scope="request" type="java.lang.Boolean"/>
     <c:if test="${hasRegisterFailed}">
         <p class="username-error">This email is already in use</p>

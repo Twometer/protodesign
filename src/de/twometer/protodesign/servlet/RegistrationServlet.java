@@ -27,6 +27,7 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect("dashboard");
             return;
         }
+        req.setAttribute("noWhitelist", false);
         req.setAttribute("commonError", false);
         req.setAttribute("hasPasswordFailed", false);
         req.setAttribute("hasRegisterFailed", false);
@@ -40,8 +41,9 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
         if (email != null && password != null && confirmPassword != null && email.trim().length() > 0 && password.trim().length() > 0 && confirmPassword.trim().length() > 0) {
-            if (!SessionManager.getWhiteList().contains(email)) {
-                req.setAttribute("commonError", true);
+            if (SessionManager.getWhiteList().size() > 0 && !SessionManager.getWhiteList().contains(email)) {
+                req.setAttribute("noWhitelist", true);
+                req.setAttribute("commonError", false);
                 req.setAttribute("hasPasswordFailed", false);
                 req.setAttribute("hasRegisterFailed", false);
                 req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
@@ -50,6 +52,7 @@ public class RegistrationServlet extends HttpServlet {
             }
 
             if (!password.equals(confirmPassword)) {
+                req.setAttribute("noWhitelist", false);
                 req.setAttribute("commonError", false);
                 req.setAttribute("hasPasswordFailed", true);
                 req.setAttribute("hasRegisterFailed", false);
@@ -65,6 +68,7 @@ public class RegistrationServlet extends HttpServlet {
                 e.printStackTrace();
             }
             if (users != null && users.size() > 0) {
+                req.setAttribute("noWhitelist", false);
                 req.setAttribute("commonError", false);
                 req.setAttribute("hasPasswordFailed", false);
                 req.setAttribute("hasRegisterFailed", true);
@@ -83,6 +87,7 @@ public class RegistrationServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+        req.setAttribute("noWhitelist", false);
         req.setAttribute("commonError", true);
         req.setAttribute("hasPasswordFailed", false);
         req.setAttribute("hasRegisterFailed", false);

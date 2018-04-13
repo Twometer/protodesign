@@ -9,7 +9,7 @@ public class FileList<T> {
     private String path;
     private List<T> theList = null;
 
-    public FileList(String path) {
+    FileList(String path) {
         this.path = path;
     }
 
@@ -56,6 +56,16 @@ public class FileList<T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<T> getList() {
+        load();
+        return theList == null ? new ArrayList<>() : new ArrayList<>(theList);
+    }
+
+    public int size() {
+        load();
+        return theList.size();
     }
 
 }
