@@ -14,7 +14,6 @@ that need revision-based sharing of (technical) documents between people in a sm
 - Administrator panel
    - Configure the user white list
 - "My account" panel
-  - Change username
   - Change password
 ## To Do
 - Admin panel
