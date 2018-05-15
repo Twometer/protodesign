@@ -57,7 +57,8 @@ public class Utils {
         if (protocol.ownerId != userId) {
             List<ProtocolShareInfo> infoList = DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocol.protocolId);
             for (ProtocolShareInfo info : infoList)
-                if (info.sharedUserId == userId) return true;
+                if (info.sharedUserId == userId) return false;
+            return true;
         }
         return false;
     }
