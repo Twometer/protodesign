@@ -50,7 +50,7 @@ public class HistoryServlet extends HttpServlet {
                 return;
             }
 
-            if (!Utils.mayAccess(userId, protocol)) {
+            if (Utils.isUnauthorized(userId, protocol)) {
                 resp.sendError(403);
                 return;
             }

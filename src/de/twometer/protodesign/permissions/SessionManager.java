@@ -62,7 +62,7 @@ public class SessionManager {
                 return null;
             }
 
-            if (!Utils.mayAccess(user.userId, protocol)) {
+            if (Utils.isUnauthorized(user.userId, protocol)) {
                 resp.sendError(403);
                 return null;
             }

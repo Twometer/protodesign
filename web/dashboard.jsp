@@ -45,6 +45,9 @@
                 <a href="${pageContext.request.contextPath}/create">
                     <button role="button" class="btn btn-primary float-right">Create new</button>
                 </a>
+                <a href="${pageContext.request.contextPath}/account">
+                    <button role="button" class="btn btn-link float-right">My Account</button>
+                </a>
                 <jsp:useBean id="isAdmin" scope="request" type="java.lang.Boolean"/>
                 <c:if test="${isAdmin}">
                     <a href="${pageContext.request.contextPath}/admin">

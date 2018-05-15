@@ -53,22 +53,17 @@ public class Utils {
         else return users.get(0).userId;
     }
 
-    public static boolean mayAccess(long userId, Protocol protocol) throws SQLException {
+    public static boolean isUnauthorized(long userId, Protocol protocol) throws SQLException {
         if (protocol.ownerId != userId) {
             List<ProtocolShareInfo> infoList = DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocol.protocolId);
-            boolean found = false;
             for (ProtocolShareInfo info : infoList)
-                if (info.sharedUserId == userId) {
-                    found = true;
-                    break;
-                }
-            return found;
+                if (info.sharedUserId == userId) return true;
         }
-        return true;
+        return false;
     }
 
     public static String getFilePath(String fileName) {
-        if (System.getProperty("os.name").startsWith("Windows")) return new File(fileName).getAbsolutePath();
+        if (System.getProperty("os.name").startsWith("Windows")) return new File("D:\\" + fileName).getAbsolutePath();
         else return "/opt/tomcat/webapps/" + fileName;
     }
 }

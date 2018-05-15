@@ -46,13 +46,12 @@ public class EditProtocolServlet extends HttpServlet {
             }
 
             Protocol protocol = DbAccess.getProtocolDao().queryForId(id);
-
             if (protocol == null) {
                 resp.sendError(404);
                 return;
             }
 
-            if (!Utils.mayAccess(userId, protocol)) {
+            if (Utils.isUnauthorized(userId, protocol)) {
                 resp.sendError(403);
                 return;
             }
