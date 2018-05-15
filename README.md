@@ -13,10 +13,10 @@ that need revision-based sharing of (technical) documents between people in a sm
 - Some users can be admins (Configurable in `protodesign-admins.txt`)
 - Administrator panel
    - Configure the user white list
+- "My account" panel
+  - Change username
+  - Change password
 ## To Do
 - Admin panel
   - Delete users/change user passwords etc.
   - View all created protocols
-- Profile data
-  - Change username
-  - Change password
