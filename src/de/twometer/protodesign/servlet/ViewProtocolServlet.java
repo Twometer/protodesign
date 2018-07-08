@@ -5,6 +5,7 @@ import de.twometer.protodesign.db.Protocol;
 import de.twometer.protodesign.db.ProtocolRevision;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,10 @@ public class ViewProtocolServlet extends HttpServlet {
 
                 Protocol protocol = SessionManager.getProtocol(resp, user, id);
                 if (protocol == null) return;
+                if (Utils.isUnauthorized(user.userId, protocol)) {
+                    resp.sendError(403);
+                    return;
+                }
 
                 long revision = revision_s != null && revision_s.length() > 0 ? Long.parseLong(revision_s) : protocol.latestRevision;
 

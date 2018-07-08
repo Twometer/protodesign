@@ -41,6 +41,7 @@
             </div>
         </div>
         <form method="post">
+            <input name="action" type="hidden" value="edit">
             <input name="protocolId" type="hidden" value="${protocol.protocolId}">
             <div class="form-group">
                 <label for="inputTitle">Title</label>
@@ -62,8 +63,18 @@
             <a href="${pageContext.request.contextPath}/view?id=${protocol.protocolId}">
                 <button type="button" class="btn btn-link">Cancel</button>
             </a>
+            <button id="deleteButton" type="button" class="btn btn-danger float-right">Delete protocol</button>
+        </form>
+        <form id="deleteForm" method="post">
+            <input name="action" type="hidden" value="delete">
+            <input name="protocolId" type="hidden" value="${protocol.protocolId}">
         </form>
     </main>
 </header>
 </body>
+<script>
+    document.getElementById('deleteButton').onclick = function () {
+        document.getElementById('deleteForm').submit();
+    }
+</script>
 </html>

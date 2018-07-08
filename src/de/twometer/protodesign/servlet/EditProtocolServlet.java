@@ -21,6 +21,9 @@ import static de.twometer.protodesign.util.Utils.loginFailed;
 @WebServlet("/edit")
 public class EditProtocolServlet extends HttpServlet {
 
+    public static final String ACTION_EDIT = "edit";
+    public static final String ACTION_DELETE = "delete";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id_s = req.getParameter("id");
@@ -79,31 +82,49 @@ public class EditProtocolServlet extends HttpServlet {
                 return;
             }
 
+            String action = req.getParameter("action");
             long protocolId = Long.parseLong(req.getParameter("protocolId"));
-            String title = req.getParameter("title");
-            String desc = req.getParameter("description");
-            String shared = req.getParameter("sharedUsers");
-            if (title == null || desc == null || title.trim().length() == 0 || desc.trim().length() == 0 || protocolId == 0)
-                resp.sendError(400);
+            if (action.equalsIgnoreCase(ACTION_EDIT)) {
+                String title = req.getParameter("title");
+                String desc = req.getParameter("description");
+                String shared = req.getParameter("sharedUsers");
+                if (title == null || desc == null || title.trim().length() == 0 || desc.trim().length() == 0 || protocolId == 0)
+                    resp.sendError(400);
 
-            Protocol protocol = DbAccess.getProtocolDao().queryForId(protocolId);
-            protocol.title = title;
-            protocol.description = desc;
-            protocol.lastActive = System.currentTimeMillis();
-            DbAccess.getProtocolDao().update(protocol);
+                Protocol protocol = DbAccess.getProtocolDao().queryForId(protocolId);
+                if(Utils.isUnauthorized(userId, protocol)){
+                    resp.sendError(403);
+                    return;
+                }
 
-            List<ProtocolShareInfo> shareInfos = new ArrayList<>();
-            shareInfos.add(new ProtocolShareInfo(protocol.protocolId, user.userId));
+                protocol.title = title;
+                protocol.description = desc;
+                protocol.lastActive = System.currentTimeMillis();
+                DbAccess.getProtocolDao().update(protocol);
 
-            for (String s : shared.split(";")) {
-                long sharedUser = findUser(s);
-                if (sharedUser != 0) shareInfos.add(new ProtocolShareInfo(protocol.protocolId, sharedUser));
+                List<ProtocolShareInfo> shareInfos = new ArrayList<>();
+                shareInfos.add(new ProtocolShareInfo(protocol.protocolId, user.userId));
+
+                for (String s : shared.split(";")) {
+                    long sharedUser = findUser(s);
+                    if (sharedUser != 0) shareInfos.add(new ProtocolShareInfo(protocol.protocolId, sharedUser));
+                }
+
+                DbAccess.getProtocolShareInfoDao().delete(DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocolId));
+                DbAccess.getProtocolShareInfoDao().create(shareInfos);
+
+                resp.sendRedirect("view?id=" + protocolId);
+            } else if (action.equalsIgnoreCase(ACTION_DELETE)) {
+                Protocol protocol = DbAccess.getProtocolDao().queryForId(protocolId);
+                if(Utils.isUnauthorized(userId, protocol)){
+                    resp.sendError(403);
+                    return;
+                }
+                DbAccess.getProtocolShareInfoDao().delete(DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocolId));
+                DbAccess.getProtocolDao().deleteById(protocolId);
+                resp.sendRedirect("dashboard");
             }
 
-            DbAccess.getProtocolShareInfoDao().delete(DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocolId));
-            DbAccess.getProtocolShareInfoDao().create(shareInfos);
-
-            resp.sendRedirect("view?id=" + protocolId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
