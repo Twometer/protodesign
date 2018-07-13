@@ -45,9 +45,8 @@
         <h2>User whitelist</h2>
         <p>
             Only whitelisted email addresses can register with this Protodesign instance
-        </p>
-        <p>
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Add user
+            <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#addModal">Add
+                user
             </button>
         </p>
         <c:if test="${whitelist.size() > 0}">
@@ -77,7 +76,9 @@
             </table>
         </c:if>
         <c:if test="${whitelist.size() == 0}">
-            <p>The whitelist is empty. Therefore it is disabled.</p>
+            <div class="empty-list">
+                The whitelist is empty. This means anyone can register.
+            </div>
         </c:if>
     </main>
 </header>

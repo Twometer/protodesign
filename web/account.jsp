@@ -77,6 +77,9 @@
                    placeholder="Enter new password" required>
         </div>
         <button type="submit" class="btn btn-primary">Change</button>
+        <a href="${pageContext.request.contextPath}/dashboard">
+            <button type="button" class="btn btn-link">Cancel</button>
+        </a>
     </form>
 </main>
 </body>

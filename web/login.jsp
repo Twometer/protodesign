@@ -41,7 +41,7 @@
         <p class="username-success">Your account has been created.</p>
     </c:if>
     <div class="checkbox mb-3 text-center">
-        <a href="${pageContext.request.contextPath}/register">Create an account</a>
+        <a href="${pageContext.request.contextPath}/register">No account?</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
     <p class="mt-5 mb-3 text-muted">&copy; ${year} Twometer Applications</p>

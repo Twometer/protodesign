@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>View</title>
+    <title>${protocol.title} - Protodesign</title>
     <link rel="icon" href="assets/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
@@ -65,7 +65,9 @@
         </c:if>
 
         <c:if test="${protocolRev.revisionNo == -1}">
-            No content found. Create your first revision now.
+            <div class="empty-list">
+                There is no content here. Create your first revision now.
+            </div>
         </c:if>
 
         <c:if test="${protocolRev.revisionNo != -1}">

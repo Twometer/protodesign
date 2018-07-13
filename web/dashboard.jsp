@@ -70,6 +70,11 @@
                 <small class="text-muted">Created by ${protocol.ownerName}</small>
             </a>
         </c:forEach>
+        <c:if test="${protocols.size() == 0}">
+            <div class="empty-list">
+                Hmm... Looks like you don't have any protocols. Create one now.
+            </div>
+        </c:if>
     </div>
 </main>
 

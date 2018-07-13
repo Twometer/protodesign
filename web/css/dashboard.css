@@ -17,3 +17,22 @@
     overflow-y: auto;
     border: 1px solid #CED4DA;
 }
+
+.navbar {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    color: #f0f0f0 !important;
+}
+
+.empty-list {
+    color: #777;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}

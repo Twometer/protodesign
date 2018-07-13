@@ -66,7 +66,9 @@
             </table>
         </c:if>
         <c:if test="${revisions.size() == 0}">
-            No revisions found.
+            <div class="empty-list">
+                There are no revisions... yet
+            </div>
         </c:if>
     </main>
 </header>

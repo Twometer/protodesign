@@ -81,8 +81,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Do you really want to delete protocol ${protocol.title}?</p>
-                    This <b>cannot be undone</b>!
+                    <p>Do you really want to throw away <em>${protocol.title}</em>?</p>
+                    You <b>cannot undo</b> this.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

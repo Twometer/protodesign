@@ -50,11 +50,15 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <textarea name="content" class="form-control" id="inputContent" rows="25"
-                                  placeholder="Enter your protocol content here. You can use Markdown and VPSL"
+                                  placeholder="Write your content here. You can use Markdown and VPSL."
                                   required>${latestRevision.contents}</textarea>
                     </div>
                     <div class="col-lg-6">
-                        <div id="preview"></div>
+                        <div id="preview">
+                            <div class="empty-list">
+                                Type something and a cool preview will show up here
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

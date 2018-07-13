@@ -1,5 +1,6 @@
 var contentCtl = $("#inputContent");
 var previewCtl = $("#preview");
+var placeholder = previewCtl.html();
 
 previewCtl.outerHeight(contentCtl.innerHeight());
 
@@ -13,8 +14,8 @@ $(reload());
 
 var lastVal;
 
-setInterval(function(e){
-    if(contentCtl.val() !== lastVal) {
+setInterval(function (e) {
+    if (contentCtl.val() !== lastVal) {
         reload();
         lastVal = contentCtl.val();
     }
@@ -23,7 +24,10 @@ setInterval(function(e){
 function reload() {
     var content = contentCtl.val();
     $.post("format", content, function (data) {
-        $("#preview").html(data);
+        previewCtl.html(data);
+        if (previewCtl.html() === '') {
+            previewCtl.html(placeholder);
+        }
     });
 }
 
