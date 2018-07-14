@@ -1,69 +1,60 @@
 package de.twometer.protodesign.parsers;
 
+import de.twometer.protodesign.util.CodeScanner;
+
 import static de.twometer.protodesign.util.ParserUtils.buildHtmlTag;
 import static de.twometer.protodesign.util.ParserUtils.startsAt;
 
 public class VPSLParser implements IParser {
+
+    private class State {
+        boolean inDataType = false;
+        boolean inComment = false;
+        boolean inCondition = false;
+        int datatypeApply = -1;
+    }
+
     @Override
     public String process(String html) {
-        boolean inCodeBlock = false;
+        State state = new State();
+        return CodeScanner.scan(html, "vpsl", (data, i, output) -> {
+            if (!state.inDataType && startsAt(data, "&lt;", i)) {
+                state.inDataType = true;
+                state.datatypeApply = i + "&lt;".length();
+            }
+            if (!state.inDataType && (data[i] == '[' || data[i] == '{') && (i == 0 || (data[i - 1] == '>' || data[i - 1] == ';' || data[i - 1] == '\n'))) {
+                state.inDataType = true;
+                state.datatypeApply = i + 1;
+            }
+            if (state.inDataType && state.datatypeApply == i) {
+                output.append(buildHtmlTag("vpsl-datatype", true));
+            }
+            if (state.inDataType && data[i] == ' ') {
+                state.inDataType = false;
+                output.append(buildHtmlTag(null, false));
+            }
 
-        boolean inDataType = false;
+            if (!state.inComment && data[i] == '\'') {
+                output.append(buildHtmlTag("vpsl-comment", true));
+                state.inComment = true;
+            }
 
-        boolean inComment = false;
+            if (state.inComment && data[i] == '\n') {
+                output.append(buildHtmlTag(null, false));
+                state.inComment = false;
+            }
 
-        boolean inCondition = false;
+            if (!state.inCondition && i > 0 && data[i] == '(' && data[i - 1] == '(') {
+                output.append(buildHtmlTag("vpsl-condition", true));
+                state.inCondition = true;
+            }
 
-        int datatypeApply = -1;
+            output.append(data[i]);
 
-        StringBuilder stringBuilder = new StringBuilder();
-
-        char[] chars = html.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            if (startsAt(chars, "<pre><code class=\"language-vpsl\">", i)) inCodeBlock = true;
-            else if (startsAt(chars, "</code></pre>", i)) inCodeBlock = false;
-            if (inCodeBlock) {
-
-                if (!inDataType && startsAt(chars, "&lt;", i)) {
-                    inDataType = true;
-                    datatypeApply = i + "&lt;".length();
-                }
-                if (!inDataType && (chars[i] == '[' || chars[i] == '{') && (i == 0 || (chars[i - 1] == '>' || chars[i - 1] == ';' || chars[i - 1] == '\n'))) {
-                    inDataType = true;
-                    datatypeApply = i + 1;
-                }
-                if (inDataType && datatypeApply == i) {
-                    stringBuilder.append(buildHtmlTag("vpsl-datatype", true));
-                }
-                if (inDataType && chars[i] == ' ') {
-                    inDataType = false;
-                    stringBuilder.append(buildHtmlTag(null, false));
-                }
-
-                if (!inComment && chars[i] == '\'') {
-                    stringBuilder.append(buildHtmlTag("vpsl-comment", true));
-                    inComment = true;
-                }
-
-                if (inComment && chars[i] == '\n') {
-                    stringBuilder.append(buildHtmlTag(null, false));
-                    inComment = false;
-                }
-
-                if (!inCondition && i > 0 && chars[i] == '(' && chars[i - 1] == '(') {
-                    stringBuilder.append(buildHtmlTag("vpsl-condition", true));
-                    inCondition = true;
-                }
-
-                stringBuilder.append(chars[i]);
-
-                if (inCondition && chars[i] == ')') {
-                    stringBuilder.append(buildHtmlTag(null, false));
-                    inCondition = false;
-                }
-
-            } else stringBuilder.append(chars[i]);
-        }
-        return stringBuilder.toString();
+            if (state.inCondition && data[i] == ')') {
+                output.append(buildHtmlTag(null, false));
+                state.inCondition = false;
+            }
+        });
     }
 }

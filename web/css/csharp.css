@@ -1,0 +1,15 @@
+.csharp-keyword {
+    color: #0000FF;
+}
+
+.csharp-datatype {
+    color: #2B91AF;
+}
+
+.csharp-string {
+    color: #A31515;
+}
+
+.csharp-comment {
+    color: #008000;
+}

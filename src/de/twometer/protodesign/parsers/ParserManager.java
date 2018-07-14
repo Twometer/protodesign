@@ -6,7 +6,8 @@ public class ParserManager {
 
     private IParser[] registeredParsers = new IParser[]{
             new MarkdownParser(),
-            new VPSLParser()
+            new VPSLParser(),
+            new CSharpParser()
     };
 
     public static ParserManager getInstance() {
