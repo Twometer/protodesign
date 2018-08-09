@@ -15,6 +15,9 @@
     <title>Protodesign</title>
     <link rel="icon" href="assets/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <style>
         .container {
             margin-top: 2em;
@@ -24,36 +27,41 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
-            <img src="${pageContext.request.contextPath}/assets/logo.png" width="30" height="30"
+            <img src="/assets/logo.png" width="30" height="30"
                  class="d-inline-block align-top" alt="">
             Protodesign
         </a>
-        <form class="form-inline my-2 my-lg-0">
-            <a href="${pageContext.request.contextPath}/login">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button">Log in</button>
-            </a>
-        </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="dropdown" href="login" role="button"><i
+                            class="fas fa-sign-in-alt mr-2"></i>Log in</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
-<!-- Begin page content -->
+
 <main role="main" class="container">
     <div class="jumbotron">
         <h1 class="display-4">Protodesign</h1>
-        <p class="lead">Welcome to Protodesign, the world's first easy-to-use, intuitive protocol designer.</p>
+        <p class="lead">Welcome to Protodesign, an easy-to-use, intuitive, team-focused protocol designer.</p>
         <hr class="my-4">
         <p>Made for teamwork: Design collaboration has never been this easy before.</p>
+        <p>Made for productivity: All neccessary features such as version control and code highlighting are just one click away</p>
         <p class="lead">
             <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/login" role="button">Log in</a>
         </p>
     </div>
 
     <h1 class="mt-5">Features</h1>
-    <p class="lead">Protodesign has inbuilt features for designing, developing and documenting protocol specifications.
-        You can use Markdown and the <a href="vdps.html">VectorData Protocol Spec Language</a> for creating your
-        designs.</p>
-    <p>We hope you enjoy the product.</p>
+    <p class="lead">Protodesign has built-in features for designing, developing and documenting protocol specifications,
+        or any other kind of technical documents.</p>
+    <p>You can use Markdown for creating your designs. It includes syntax highlighting for languages such as the <a
+            href="vdps.html">VectorData Protocol Spec Language</a> and C#.</p>
+    <p>We hope you enjoy our product.</p>
 </main>
 
 <footer class="footer">
@@ -64,13 +72,4 @@
 
 
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
 </html>

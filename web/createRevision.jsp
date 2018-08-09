@@ -18,6 +18,7 @@
     <link rel="icon" href="assets/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/view.css">
     <link rel="stylesheet" href="css/vpsl.css">
     <link rel="stylesheet" href="css/csharp.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
