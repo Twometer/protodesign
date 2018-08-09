@@ -2,8 +2,8 @@ package de.twometer.protodesign.servlet;
 
 
 import de.twometer.protodesign.db.DbAccess;
-import de.twometer.protodesign.permissions.SessionManager;
 import de.twometer.protodesign.db.User;
+import de.twometer.protodesign.permissions.SessionManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -42,22 +42,12 @@ public class RegistrationServlet extends HttpServlet {
         String confirmPassword = req.getParameter("confirmPassword");
         if (email != null && password != null && confirmPassword != null && email.trim().length() > 0 && password.trim().length() > 0 && confirmPassword.trim().length() > 0) {
             if (SessionManager.getWhiteList().size() > 0 && !SessionManager.getWhiteList().contains(email)) {
-                req.setAttribute("noWhitelist", true);
-                req.setAttribute("commonError", false);
-                req.setAttribute("hasPasswordFailed", false);
-                req.setAttribute("hasRegisterFailed", false);
-                req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
-                req.getRequestDispatcher("/register.jsp").forward(req, resp);
+                sendDocument(true,false,false,false, req, resp);
                 return;
             }
 
             if (!password.equals(confirmPassword)) {
-                req.setAttribute("noWhitelist", false);
-                req.setAttribute("commonError", false);
-                req.setAttribute("hasPasswordFailed", true);
-                req.setAttribute("hasRegisterFailed", false);
-                req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
-                req.getRequestDispatcher("/register.jsp").forward(req, resp);
+                sendDocument(false,false,true,false, req, resp);
                 return;
             }
 
@@ -68,12 +58,7 @@ public class RegistrationServlet extends HttpServlet {
                 e.printStackTrace();
             }
             if (users != null && users.size() > 0) {
-                req.setAttribute("noWhitelist", false);
-                req.setAttribute("commonError", false);
-                req.setAttribute("hasPasswordFailed", false);
-                req.setAttribute("hasRegisterFailed", true);
-                req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
-                req.getRequestDispatcher("/register.jsp").forward(req, resp);
+                sendDocument(false,false,false,true, req, resp);
                 return;
             }
 
@@ -87,10 +72,14 @@ public class RegistrationServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        req.setAttribute("noWhitelist", false);
-        req.setAttribute("commonError", true);
-        req.setAttribute("hasPasswordFailed", false);
-        req.setAttribute("hasRegisterFailed", false);
+        sendDocument(false,true,false,false, req, resp);
+    }
+
+    private void sendDocument(boolean noWhitelist, boolean commonError, boolean hasPwFailed, boolean hasRegisterFailed, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("noWhitelist", noWhitelist);
+        req.setAttribute("commonError", commonError);
+        req.setAttribute("hasPasswordFailed", hasPwFailed);
+        req.setAttribute("hasRegisterFailed", hasRegisterFailed);
         req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
         req.getRequestDispatcher("/register.jsp").forward(req, resp);
     }

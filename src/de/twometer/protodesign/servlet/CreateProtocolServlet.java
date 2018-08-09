@@ -5,6 +5,7 @@ import de.twometer.protodesign.db.Protocol;
 import de.twometer.protodesign.db.ProtocolShareInfo;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.permissions.UserManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static de.twometer.protodesign.util.Utils.findUser;
-
 @WebServlet("/create")
 public class CreateProtocolServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = SessionManager.authenticate(req, resp);
+        User user = SessionManager.tryAuthenticate(req, resp);
         if(user != null) {
             req.setAttribute("username", user.email);
             req.getRequestDispatcher("/create.jsp").forward(req, resp);
@@ -33,7 +32,7 @@ public class CreateProtocolServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            User user = SessionManager.authenticate(req, resp);
+            User user = SessionManager.tryAuthenticate(req, resp);
             if(user == null) return;
 
             String title = req.getParameter("title");
@@ -55,7 +54,7 @@ public class CreateProtocolServlet extends HttpServlet {
             shareInfos.add(new ProtocolShareInfo(protocol.protocolId, user.userId));
 
             for (String s : shared.split(";")) {
-                long sharedUser = findUser(s);
+                long sharedUser = UserManager.findUser(s);
                 if (sharedUser != 0) shareInfos.add(new ProtocolShareInfo(protocol.protocolId, sharedUser));
             }
 

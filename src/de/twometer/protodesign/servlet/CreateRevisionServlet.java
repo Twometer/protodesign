@@ -5,6 +5,7 @@ import de.twometer.protodesign.db.Protocol;
 import de.twometer.protodesign.db.ProtocolRevision;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.permissions.UserManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -31,10 +32,10 @@ public class CreateRevisionServlet extends HttpServlet {
         }
 
         try {
-            User user = SessionManager.authenticate(req, resp);
+            User user = SessionManager.tryAuthenticate(req, resp);
             if (user == null) return;
 
-            Protocol protocol = SessionManager.getProtocol(resp, user, id);
+            Protocol protocol = UserManager.getProtocolAndCheck(resp, user, id);
             if (protocol == null) return;
 
             List<ProtocolRevision> rev = DbAccess.getProtocolRevisionDao().queryBuilder().where().eq("protocolId", protocol.protocolId).and().eq("revisionNo", protocol.latestRevision).query();
@@ -68,10 +69,10 @@ public class CreateRevisionServlet extends HttpServlet {
         }
 
         try {
-            User user = SessionManager.authenticate(req, resp);
+            User user = SessionManager.tryAuthenticate(req, resp);
             if (user == null) return;
 
-            Protocol protocol = SessionManager.getProtocol(resp, user, id);
+            Protocol protocol = UserManager.getProtocolAndCheck(resp, user, id);
             if (protocol == null) return;
 
             protocol.latestRevision++;

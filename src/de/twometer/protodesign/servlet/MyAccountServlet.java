@@ -18,21 +18,21 @@ public class MyAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = SessionManager.authenticate(req, resp);
+        User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
         forwardDocument(req, resp, user, -1, "");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = SessionManager.authenticate(req, resp);
+        User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
 
         String oldPass = req.getParameter("oldPass");
         String newPass = req.getParameter("newPass");
         String confPass = req.getParameter("confPass");
 
-        if (oldPass == null || newPass == null || confPass == null || !Utils.sequenceEqual(user.passwordHash, Utils.hash(oldPass)) || !newPass.equals(confPass)) {
+        if (oldPass == null || newPass == null || !Utils.sequenceEqual(user.passwordHash, Utils.hash(oldPass)) || !newPass.equals(confPass)) {
             forwardDocument(req, resp, user, 1, "");
             return;
         }

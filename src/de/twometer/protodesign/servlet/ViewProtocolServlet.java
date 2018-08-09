@@ -5,6 +5,7 @@ import de.twometer.protodesign.db.Protocol;
 import de.twometer.protodesign.db.ProtocolRevision;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.permissions.UserManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -34,29 +35,24 @@ public class ViewProtocolServlet extends HttpServlet {
                 return;
             }
 
-            User user = SessionManager.authenticate(req, resp);
-            if (user != null) {
+            User user = SessionManager.tryAuthenticate(req, resp);
+            if (user == null) return;
 
-                Protocol protocol = SessionManager.getProtocol(resp, user, id);
-                if (protocol == null) return;
-                if (Utils.isUnauthorized(user.userId, protocol)) {
-                    resp.sendError(403);
-                    return;
-                }
+            Protocol protocol = UserManager.getProtocolAndCheck(resp, user, id);
+            if (protocol == null) return;
 
-                long revision = revision_s != null && revision_s.length() > 0 ? Utils.toLong(revision_s) : protocol.latestRevision;
+            long revision = revision_s != null && revision_s.length() > 0 ? Long.valueOf(revision_s) : protocol.latestRevision;
 
-                List<ProtocolRevision> rev = DbAccess.getProtocolRevisionDao().queryBuilder().where().eq("protocolId", protocol.protocolId).and().eq("revisionNo", revision).query();
+            List<ProtocolRevision> rev = DbAccess.getProtocolRevisionDao().queryBuilder().where().eq("protocolId", protocol.protocolId).and().eq("revisionNo", revision).query();
 
-                ProtocolRevision revision1 = new ProtocolRevision();
-                revision1.revisionNo = -1;
+            ProtocolRevision revision1 = new ProtocolRevision();
+            revision1.revisionNo = -1;
 
-                req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
-                req.setAttribute("protocolRev", rev.size() > 0 ? rev.get(0) : revision1);
-                req.setAttribute("protocol", protocol);
-                req.setAttribute("username", user.email);
-                req.getRequestDispatcher("/view.jsp").forward(req, resp);
-            }
+            req.setAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
+            req.setAttribute("protocolRev", rev.size() > 0 ? rev.get(0) : revision1);
+            req.setAttribute("protocol", protocol);
+            req.setAttribute("username", user.email);
+            req.getRequestDispatcher("/view.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
             resp.sendError(500);

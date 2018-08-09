@@ -34,7 +34,7 @@ public class SessionManager {
         sessionIds.remove(request.getSession().getId());
     }
 
-    public static User authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public static User tryAuthenticate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             long userId = SessionManager.getUser(request);
             if (userId == 0) {
@@ -52,27 +52,6 @@ public class SessionManager {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static Protocol getProtocol(HttpServletResponse resp, User user, long protocolId) throws IOException {
-        try {
-            Protocol protocol = DbAccess.getProtocolDao().queryForId(protocolId);
-            if (protocol == null) {
-                resp.sendError(404);
-                return null;
-            }
-
-            if (Utils.isUnauthorized(user.userId, protocol)) {
-                resp.sendError(403);
-                return null;
-            }
-
-            return protocol;
-        }catch (SQLException  e) {
-            e.printStackTrace();
-            resp.sendError(500);
-            return null;
-        }
     }
 
     public static FileList<String> getAdminAccounts() {

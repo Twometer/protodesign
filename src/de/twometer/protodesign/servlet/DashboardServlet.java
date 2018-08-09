@@ -22,19 +22,10 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
+            User user = SessionManager.tryAuthenticate(req, resp);
+            if (user == null) return;
 
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
-
-            List<ProtocolShareInfo> shareInfos = DbAccess.getProtocolShareInfoDao().queryForEq("sharedUserId", userId);
+            List<ProtocolShareInfo> shareInfos = DbAccess.getProtocolShareInfoDao().queryForEq("sharedUserId", user.userId);
             List<Protocol> protocols = new ArrayList<>();
 
             for (ProtocolShareInfo shareInfo : shareInfos)

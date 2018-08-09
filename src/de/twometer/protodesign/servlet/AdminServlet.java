@@ -13,11 +13,9 @@ import java.io.IOException;
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
-    private static final String SUCCESS_JSON = "{\"success\":\"true\"}";
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = SessionManager.authenticate(req, resp);
+        User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
         if (!SessionManager.getAdminAccounts().contains(user.email)) {
             resp.sendError(403);
@@ -28,7 +26,7 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = SessionManager.authenticate(req, resp);
+        User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
         if (!SessionManager.getAdminAccounts().contains(user.email)) {
             resp.sendError(403);

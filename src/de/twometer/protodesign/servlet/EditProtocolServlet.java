@@ -1,8 +1,12 @@
 package de.twometer.protodesign.servlet;
 
 
-import de.twometer.protodesign.db.*;
+import de.twometer.protodesign.db.DbAccess;
+import de.twometer.protodesign.db.Protocol;
+import de.twometer.protodesign.db.ProtocolShareInfo;
+import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.permissions.UserManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -15,14 +19,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.twometer.protodesign.util.Utils.findUser;
-import static de.twometer.protodesign.util.Utils.loginFailed;
-
 @WebServlet("/edit")
 public class EditProtocolServlet extends HttpServlet {
 
-    public static final String ACTION_EDIT = "edit";
-    public static final String ACTION_DELETE = "delete";
+    private static final String ACTION_EDIT = "edit";
+    private static final String ACTION_DELETE = "delete";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,52 +36,22 @@ public class EditProtocolServlet extends HttpServlet {
             return;
         }
 
-        try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
+        User user = SessionManager.tryAuthenticate(req, resp);
+        if (user == null) return;
 
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
+        Protocol protocol = UserManager.getProtocolAndCheck(resp, user, id);
+        if (protocol == null) return;
 
-            Protocol protocol = DbAccess.getProtocolDao().queryForId(id);
-            if (protocol == null) {
-                resp.sendError(404);
-                return;
-            }
-
-            if (Utils.isUnauthorized(userId, protocol)) {
-                resp.sendError(403);
-                return;
-            }
-
-            req.setAttribute("protocol", protocol);
-            req.setAttribute("username", user.email);
-            req.getRequestDispatcher("/edit.jsp").forward(req, resp);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        req.setAttribute("protocol", protocol);
+        req.setAttribute("username", user.email);
+        req.getRequestDispatcher("/edit.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
-
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
+            User user = SessionManager.tryAuthenticate(req, resp);
+            if (user == null) return;
 
             String action = req.getParameter("action");
             long protocolId = Utils.toLong(req.getParameter("protocolId"));
@@ -91,11 +62,8 @@ public class EditProtocolServlet extends HttpServlet {
                 if (title == null || desc == null || title.trim().length() == 0 || desc.trim().length() == 0 || protocolId == 0)
                     resp.sendError(400);
 
-                Protocol protocol = DbAccess.getProtocolDao().queryForId(protocolId);
-                if(Utils.isUnauthorized(userId, protocol)){
-                    resp.sendError(403);
-                    return;
-                }
+                Protocol protocol = UserManager.getProtocolAndCheck(resp, user, protocolId);
+                if (protocol == null) return;
 
                 protocol.title = title;
                 protocol.description = desc;
@@ -106,7 +74,7 @@ public class EditProtocolServlet extends HttpServlet {
                 shareInfos.add(new ProtocolShareInfo(protocol.protocolId, user.userId));
 
                 for (String s : shared.split(";")) {
-                    long sharedUser = findUser(s);
+                    long sharedUser = UserManager.findUser(s);
                     if (sharedUser != 0) shareInfos.add(new ProtocolShareInfo(protocol.protocolId, sharedUser));
                 }
 
@@ -115,11 +83,8 @@ public class EditProtocolServlet extends HttpServlet {
 
                 resp.sendRedirect("view?id=" + Utils.toHex(protocolId));
             } else if (action.equalsIgnoreCase(ACTION_DELETE)) {
-                Protocol protocol = DbAccess.getProtocolDao().queryForId(protocolId);
-                if(Utils.isUnauthorized(userId, protocol)){
-                    resp.sendError(403);
-                    return;
-                }
+                Protocol protocol = UserManager.getProtocolAndCheck(resp, user, protocolId);
+                if (protocol == null) return;
                 DbAccess.getProtocolShareInfoDao().delete(DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocolId));
                 DbAccess.getProtocolDao().deleteById(protocolId);
                 resp.sendRedirect("dashboard");

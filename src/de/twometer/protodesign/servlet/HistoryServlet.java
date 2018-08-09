@@ -2,6 +2,7 @@ package de.twometer.protodesign.servlet;
 
 import de.twometer.protodesign.db.*;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.permissions.UserManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -31,29 +32,11 @@ public class HistoryServlet extends HttpServlet {
         }
 
         try {
-            long userId = SessionManager.getUser(req);
-            if (userId == 0) {
-                loginFailed(resp);
-                return;
-            }
+            User user = SessionManager.tryAuthenticate(req, resp);
+            if (user == null) return;
 
-            User user = DbAccess.getUserDao().queryForId(userId);
-            if (user == null) {
-                loginFailed(resp);
-                return;
-            }
-
-            Protocol protocol = DbAccess.getProtocolDao().queryForId(id);
-
-            if (protocol == null) {
-                resp.sendError(404);
-                return;
-            }
-
-            if (Utils.isUnauthorized(userId, protocol)) {
-                resp.sendError(403);
-                return;
-            }
+            Protocol protocol = UserManager.getProtocolAndCheck(resp, user, id);
+            if (protocol == null) return;
 
             List<ProtocolRevision> rev = DbAccess.getProtocolRevisionDao().queryForEq("protocolId", protocol.protocolId);
             rev.sort((o1, o2) -> -Double.compare(o1.revisionNo, o2.revisionNo));
