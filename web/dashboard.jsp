@@ -18,22 +18,32 @@
     <link rel="icon" href="assets/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
 
 <header>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard">
             <img src="${pageContext.request.contextPath}/assets/logo.png" width="30" height="30"
                  class="d-inline-block align-top" alt="">
             Protodesign
         </a>
-        <form class="form-inline my-2 my-lg-0">
-            <span class="login-header">Logged in as ${username}</span>
-            <a href="${pageContext.request.contextPath}/login?ref=logoff">
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="button">Log off</button>
-            </a>
-        </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false"><i class="fas fa-user mr-2"></i>${username}</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/account">My account</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/login?ref=logoff">Log off</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
 
@@ -45,13 +55,10 @@
                 <a href="${pageContext.request.contextPath}/create">
                     <button role="button" class="btn btn-primary float-right">Create new</button>
                 </a>
-                <a href="${pageContext.request.contextPath}/account">
-                    <button role="button" class="btn btn-link float-right">My Account</button>
-                </a>
                 <jsp:useBean id="isAdmin" scope="request" type="java.lang.Boolean"/>
                 <c:if test="${isAdmin}">
                     <a href="${pageContext.request.contextPath}/admin">
-                        <button role="button" class="btn btn-link float-right">Admin</button>
+                        <button role="button" class="btn btn-link float-right">Admin Panel</button>
                     </a>
                 </c:if>
             </div>
