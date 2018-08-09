@@ -65,6 +65,10 @@ public class Protocol {
         }
     }
 
+    public String getHexId() {
+        return Utils.toHex(protocolId);
+    }
+
     public String getCollaboratorString() {
         try {
             List<ProtocolShareInfo> shareInfoList = DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocolId);

@@ -55,7 +55,7 @@
                 <tbody>
                 <c:forEach var="revision" items="${revisions}">
                     <tr class="clickable-row"
-                        data-href="${pageContext.request.contextPath}/view?id=${revision.protocolId}&revision=${revision.revisionNo}">
+                        data-href="${pageContext.request.contextPath}/view?id=${revision.hexId}&revision=${revision.revisionNo}">
                         <th scope="row">${revision.revisionNo + 1}</th>
                         <td>${revision.commitMessages}</td>
                         <td>${revision.creatorName}</td>

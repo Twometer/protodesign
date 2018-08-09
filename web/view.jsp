@@ -43,13 +43,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="logo-header-text">${protocol.title}</h1>
-                    <a href="${pageContext.request.contextPath}/createRevision?id=${protocol.protocolId}">
+                    <a href="${pageContext.request.contextPath}/createRevision?id=${protocol.hexId}">
                         <button role="button" class="btn btn-primary float-right">Create revision</button>
                     </a>
-                    <a href="${pageContext.request.contextPath}/edit?id=${protocol.protocolId}">
+                    <a href="${pageContext.request.contextPath}/edit?id=${protocol.hexId}">
                         <button role="button" class="btn btn-link float-right">Edit</button>
                     </a>
-                    <a href="${pageContext.request.contextPath}/history?id=${protocol.protocolId}">
+                    <a href="${pageContext.request.contextPath}/history?id=${protocol.hexId}">
                         <button role="button" class="btn btn-link float-right">View History</button>
                     </a>
                 </div>
@@ -60,7 +60,7 @@
         <c:if test="${protocolRev.revisionNo != protocol.latestRevision}">
             <div class="alert alert-primary" role="alert">
                 You are viewing an outdated revision. Click <a
-                    href="${pageContext.request.contextPath}/view?id=${protocol.protocolId}">here</a> for the latest
+                    href="${pageContext.request.contextPath}/view?id=${protocol.hexId}">here</a> for the latest
                 revision.
             </div>
         </c:if>

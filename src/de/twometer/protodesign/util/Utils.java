@@ -63,8 +63,16 @@ public class Utils {
         return false;
     }
 
+    public static String toHex(long l) {
+        return Long.toHexString(l);
+    }
+
+    public static long toLong(String hex) {
+        return Long.parseUnsignedLong(hex, 16);
+    }
+
     public static String getFilePath(String fileName) {
-        if (System.getProperty("os.name").startsWith("Windows")) return new File("D:\\" + fileName).getAbsolutePath();
+        if (System.getProperty("os.name").startsWith("Windows")) return new File("C:\\_home\\" + fileName).getAbsolutePath();
         else return "/opt/tomcat/webapps/" + fileName;
     }
 }

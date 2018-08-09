@@ -24,7 +24,7 @@ public class HistoryServlet extends HttpServlet {
 
         long id;
         try {
-            id = Long.parseLong(id_s);
+            id = Utils.toLong(id_s);
         } catch (Exception e) {
             resp.sendError(400);
             return;

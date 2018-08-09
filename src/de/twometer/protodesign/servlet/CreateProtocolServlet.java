@@ -34,7 +34,7 @@ public class CreateProtocolServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             User user = SessionManager.authenticate(req, resp);
-            if(user == null) return;;
+            if(user == null) return;
 
             String title = req.getParameter("title");
             String desc = req.getParameter("description");

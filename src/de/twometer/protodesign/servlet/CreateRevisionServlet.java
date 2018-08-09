@@ -5,6 +5,7 @@ import de.twometer.protodesign.db.Protocol;
 import de.twometer.protodesign.db.ProtocolRevision;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,7 @@ public class CreateRevisionServlet extends HttpServlet {
         String id_s = req.getParameter("id");
         long id;
         try {
-            id = Long.parseLong(id_s);
+            id = Utils.toLong(id_s);
         } catch (Exception e) {
             resp.sendError(400);
             return;
@@ -52,7 +53,7 @@ public class CreateRevisionServlet extends HttpServlet {
         String id_s = req.getParameter("protocolId");
         long id;
         try {
-            id = Long.parseLong(id_s);
+            id = Utils.toLong(id_s);
         } catch (Exception e) {
             resp.sendError(400);
             return;
@@ -87,7 +88,7 @@ public class CreateRevisionServlet extends HttpServlet {
             DbAccess.getProtocolDao().update(protocol);
             DbAccess.getProtocolRevisionDao().create(revision);
 
-            resp.sendRedirect("view?id=" + protocol.protocolId);
+            resp.sendRedirect("view?id=" + protocol.getHexId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

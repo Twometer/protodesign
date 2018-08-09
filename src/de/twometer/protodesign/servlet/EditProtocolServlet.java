@@ -29,7 +29,7 @@ public class EditProtocolServlet extends HttpServlet {
         String id_s = req.getParameter("id");
         long id;
         try {
-            id = Long.parseLong(id_s);
+            id = Utils.toLong(id_s);
         } catch (Exception e) {
             resp.sendError(400);
             return;
@@ -83,7 +83,7 @@ public class EditProtocolServlet extends HttpServlet {
             }
 
             String action = req.getParameter("action");
-            long protocolId = Long.parseLong(req.getParameter("protocolId"));
+            long protocolId = Utils.toLong(req.getParameter("protocolId"));
             if (action.equalsIgnoreCase(ACTION_EDIT)) {
                 String title = req.getParameter("title");
                 String desc = req.getParameter("description");
@@ -113,7 +113,7 @@ public class EditProtocolServlet extends HttpServlet {
                 DbAccess.getProtocolShareInfoDao().delete(DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocolId));
                 DbAccess.getProtocolShareInfoDao().create(shareInfos);
 
-                resp.sendRedirect("view?id=" + protocolId);
+                resp.sendRedirect("view?id=" + Utils.toHex(protocolId));
             } else if (action.equalsIgnoreCase(ACTION_DELETE)) {
                 Protocol protocol = DbAccess.getProtocolDao().queryForId(protocolId);
                 if(Utils.isUnauthorized(userId, protocol)){

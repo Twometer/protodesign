@@ -42,7 +42,7 @@
         </div>
         <form method="post">
             <input name="action" type="hidden" value="edit">
-            <input name="protocolId" type="hidden" value="${protocol.protocolId}">
+            <input name="protocolId" type="hidden" value="${protocol.hexId}">
             <div class="form-group">
                 <label for="inputTitle">Title</label>
                 <input name="title" class="form-control" id="inputTitle" placeholder="Enter title"
@@ -60,14 +60,14 @@
                        value="${protocol.collaboratorString}">
             </div>
             <button type="submit" class="btn btn-primary">Submit changes</button>
-            <a href="${pageContext.request.contextPath}/view?id=${protocol.protocolId}">
+            <a href="${pageContext.request.contextPath}/view?id=${protocol.hexId}">
                 <button type="button" class="btn btn-link">Cancel</button>
             </a>
             <button id="deleteButton" type="button" class="btn btn-danger float-right">Delete protocol</button>
         </form>
         <form id="deleteForm" method="post">
             <input name="action" type="hidden" value="delete">
-            <input name="protocolId" type="hidden" value="${protocol.protocolId}">
+            <input name="protocolId" type="hidden" value="${protocol.hexId}">
         </form>
     </main>
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog"

@@ -60,7 +60,7 @@
     <div class="list-group">
         <jsp:useBean id="protocols" scope="request" type="java.util.List<de.twometer.protodesign.db.Protocol>"/>
         <c:forEach items="${protocols}" var="protocol">
-            <a href="${pageContext.request.contextPath}/view?id=${protocol.protocolId}"
+            <a href="${pageContext.request.contextPath}/view?id=${protocol.hexId}"
                class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">${protocol.title}</h5>

@@ -28,7 +28,7 @@ public class ViewProtocolServlet extends HttpServlet {
 
             long id;
             try {
-                id = Long.parseLong(id_s);
+                id = Utils.toLong(id_s);
             } catch (Exception e) {
                 resp.sendError(400);
                 return;
@@ -44,7 +44,7 @@ public class ViewProtocolServlet extends HttpServlet {
                     return;
                 }
 
-                long revision = revision_s != null && revision_s.length() > 0 ? Long.parseLong(revision_s) : protocol.latestRevision;
+                long revision = revision_s != null && revision_s.length() > 0 ? Utils.toLong(revision_s) : protocol.latestRevision;
 
                 List<ProtocolRevision> rev = DbAccess.getProtocolRevisionDao().queryBuilder().where().eq("protocolId", protocol.protocolId).and().eq("revisionNo", revision).query();
 

@@ -77,4 +77,8 @@ public class ProtocolRevision {
         return ParserManager.getInstance().parse(getContents());
     }
 
+    public String getHexId() {
+        return Utils.toHex(protocolId);
+    }
+
 }

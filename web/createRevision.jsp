@@ -45,7 +45,7 @@
             </div>
         </div>
         <form method="post">
-            <input name="protocolId" type="hidden" value="${protocol.protocolId}">
+            <input name="protocolId" type="hidden" value="${protocol.hexId}">
             <div class="form-group">
                 <label for="inputContent">Protocol content</label>
                 <div class="row">
@@ -69,7 +69,7 @@
                        placeholder="Enter the commit message" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit revision</button>
-            <a href="${pageContext.request.contextPath}/view?id=${protocol.protocolId}">
+            <a href="${pageContext.request.contextPath}/view?id=${protocol.hexId}">
                 <button type="button" class="btn btn-link">Cancel</button>
             </a>
         </form>
