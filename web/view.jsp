@@ -55,13 +55,13 @@
             <div class="col-lg-12">
                 <h1 class="logo-header-text">${protocol.title}</h1>
                 <a href="${pageContext.request.contextPath}/createRevision?id=${protocol.hexId}">
-                    <button role="button" class="btn btn-primary float-right">Create revision</button>
+                    <button role="button" class="btn btn-primary float-right responsive" data-responsive-icon="fas fa-pencil-alt">Create revision</button>
                 </a>
                 <a href="${pageContext.request.contextPath}/edit?id=${protocol.hexId}">
-                    <button role="button" class="btn btn-link float-right">Edit</button>
+                    <button role="button" class="btn btn-link float-right responsive" data-responsive-icon="fas fa-cog">Edit</button>
                 </a>
                 <a href="${pageContext.request.contextPath}/history?id=${protocol.hexId}">
-                    <button role="button" class="btn btn-link float-right">View History</button>
+                    <button role="button" class="btn btn-link float-right responsive" data-responsive-icon="fas fa-history">View History</button>
                 </a>
             </div>
         </div>
@@ -103,5 +103,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+<script src="js/responsive.js"></script>
 </html>
 
