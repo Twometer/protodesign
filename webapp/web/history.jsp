@@ -1,4 +1,5 @@
 <jsp:useBean id="revisions" scope="request" type="java.util.List<de.twometer.protodesign.db.ProtocolRevision>"/>
+<jsp:useBean id="theme" scope="request" type="java.lang.String"/>
 <jsp:useBean id="username" scope="request" type="java.lang.String"/>
 <%--
   Created by IntelliJ IDEA.
@@ -16,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>View revisions</title>
     <link rel="icon" href="assets/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap.${theme}.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/history.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"

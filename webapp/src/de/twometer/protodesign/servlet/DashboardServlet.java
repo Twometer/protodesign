@@ -2,6 +2,7 @@ package de.twometer.protodesign.servlet;
 
 import de.twometer.protodesign.db.*;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.theme.ThemeManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +37,7 @@ public class DashboardServlet extends HttpServlet {
             req.setAttribute("isAdmin", SessionManager.getAdminAccounts().contains(user.email));
             req.setAttribute("protocols", protocols);
             req.setAttribute("username", user.email);
+            req.setAttribute("theme", ThemeManager.getThemeCode(user));
             req.getRequestDispatcher("/dashboard.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -16,6 +16,9 @@ public class User {
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     public byte[] passwordHash;
 
+    @DatabaseField()
+    public int theme;
+
     public User() {
     }
 

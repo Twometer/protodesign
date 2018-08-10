@@ -6,6 +6,7 @@ import de.twometer.protodesign.db.ProtocolRevision;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
 import de.twometer.protodesign.permissions.UserManager;
+import de.twometer.protodesign.theme.ThemeManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -43,6 +44,7 @@ public class CreateRevisionServlet extends HttpServlet {
             req.setAttribute("latestRevision", rev.size() > 0 ? rev.get(0) : new ProtocolRevision());
             req.setAttribute("protocol", protocol);
             req.setAttribute("username", user.email);
+            req.setAttribute("theme", ThemeManager.getThemeCode(user));
             req.getRequestDispatcher("/createRevision.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 <jsp:useBean id="protocolRev" scope="request" type="de.twometer.protodesign.db.ProtocolRevision"/>
 <jsp:useBean id="protocol" scope="request" type="de.twometer.protodesign.db.Protocol"/>
 <jsp:useBean id="username" scope="request" type="java.lang.String"/>
+<jsp:useBean id="theme" scope="request" type="java.lang.String"/>
 <%--
   Created by IntelliJ IDEA.
   User: Twometer
@@ -17,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>${protocol.title} - Protodesign</title>
     <link rel="icon" href="assets/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap.${theme}.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/view.css">
     <link rel="stylesheet" href="css/vpsl.css">

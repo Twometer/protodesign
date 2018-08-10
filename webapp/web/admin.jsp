@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="theme" scope="request" type="java.lang.String"/>
 <jsp:useBean id="username" scope="request" type="java.lang.String"/>
 <jsp:useBean id="whitelist" scope="request" type="java.util.List<java.lang.String>"/>
 <%--
@@ -16,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Admin</title>
     <link rel="icon" href="assets/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap.${theme}.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="theme" scope="request" type="java.lang.String"/>
 <jsp:useBean id="username" scope="request" type="java.lang.String"/>
 <%--
   Created by IntelliJ IDEA.
@@ -15,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>My Account</title>
     <link rel="icon" href="assets/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap.${theme}.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -52,6 +53,27 @@
             </div>
         </div>
     </div>
+    <h3>Change theme</h3>
+    <form class="form-inline" method="post">
+        <input type="hidden" name="action" value="change-theme">
+        <div class="form-group mx-sm-3">
+            <label for="theme" class="sr-only">Theme</label>
+            <select id="theme" name="theme" class="form-control">
+                <jsp:useBean id="availableThemes" scope="request" type="java.util.List"/>
+                <c:forEach var="availableTheme" items="${availableThemes}">
+                    <c:choose>
+                        <c:when test="${availableTheme.equalsIgnoreCase(theme)}">
+                            <option value="${availableTheme.toLowerCase()}" selected>${availableTheme}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${availableTheme.toLowerCase()}">${availableTheme}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
     <h3>Change password</h3>
     <jsp:useBean id="errorType" scope="request" type="java.lang.Integer"/>
     <c:if test="${errorType == 1}">
@@ -62,7 +84,7 @@
     <c:if test="${errorType == 3}">
         <jsp:useBean id="errorCode" scope="request" type="java.lang.String"/>
         <div class="alert alert-danger" role="alert">
-            Internal error: Please contact the administrator and tell him this cryptic code: ${errorCode}.
+            Internal error: Please tell your administrator the following code: ${errorCode}.
         </div>
     </c:if>
     <c:if test="${errorType == 2}">
@@ -71,6 +93,7 @@
         </div>
     </c:if>
     <form method="post">
+        <input type="hidden" name="action" value="change-password">
         <div class="form-group">
             <label for="inputOldPass">Your old password</label>
             <input type="password" name="oldPass" class="form-control" id="inputOldPass"
@@ -87,9 +110,6 @@
                    placeholder="Enter new password" required>
         </div>
         <button type="submit" class="btn btn-primary">Change</button>
-        <a href="${pageContext.request.contextPath}/dashboard">
-            <button type="button" class="btn btn-link">Cancel</button>
-        </a>
     </form>
 </main>
 </body>

@@ -3,6 +3,7 @@ package de.twometer.protodesign.servlet;
 import de.twometer.protodesign.db.*;
 import de.twometer.protodesign.permissions.SessionManager;
 import de.twometer.protodesign.permissions.UserManager;
+import de.twometer.protodesign.theme.ThemeManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -42,6 +43,7 @@ public class HistoryServlet extends HttpServlet {
             rev.sort((o1, o2) -> -Double.compare(o1.revisionNo, o2.revisionNo));
             req.setAttribute("revisions", rev);
             req.setAttribute("username", user.email);
+            req.setAttribute("theme", ThemeManager.getThemeCode(user));
             req.getRequestDispatcher("/history.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import de.twometer.protodesign.db.ProtocolShareInfo;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
 import de.twometer.protodesign.permissions.UserManager;
+import de.twometer.protodesign.theme.ThemeManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,7 @@ public class CreateProtocolServlet extends HttpServlet {
         User user = SessionManager.tryAuthenticate(req, resp);
         if(user != null) {
             req.setAttribute("username", user.email);
+            req.setAttribute("theme", ThemeManager.getThemeCode(user));
             req.getRequestDispatcher("/create.jsp").forward(req, resp);
         }
     }

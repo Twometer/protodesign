@@ -7,6 +7,7 @@ import de.twometer.protodesign.db.ProtocolShareInfo;
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
 import de.twometer.protodesign.permissions.UserManager;
+import de.twometer.protodesign.theme.ThemeManager;
 import de.twometer.protodesign.util.Utils;
 
 import javax.servlet.ServletException;
@@ -44,6 +45,7 @@ public class EditProtocolServlet extends HttpServlet {
 
         req.setAttribute("protocol", protocol);
         req.setAttribute("username", user.email);
+        req.setAttribute("theme", ThemeManager.getThemeCode(user));
         req.getRequestDispatcher("/edit.jsp").forward(req, resp);
     }
 

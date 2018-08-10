@@ -2,6 +2,7 @@ package de.twometer.protodesign.servlet;
 
 import de.twometer.protodesign.db.User;
 import de.twometer.protodesign.permissions.SessionManager;
+import de.twometer.protodesign.theme.ThemeManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,6 +60,7 @@ public class AdminServlet extends HttpServlet {
     private void sendDocument(User user, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("whitelist", SessionManager.getWhiteList().getList());
         req.setAttribute("username", user.email);
+        req.setAttribute("theme", ThemeManager.getThemeCode(user));
         req.getRequestDispatcher("/admin.jsp").forward(req, resp);
     }
 
