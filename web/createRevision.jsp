@@ -61,13 +61,17 @@
         <input name="protocolId" type="hidden" value="${protocol.hexId}">
         <div class="form-group">
             <label for="inputContent">Protocol content</label>
+            <div id="view-switcher" class="btn-group float-right" role="group" aria-label="View switcher">
+                <button id="btn-vs-markdown" type="button" class="btn btn-primary"><i class="fab fa-markdown"></i></button>
+                <button id="btn-vs-preview" type="button" class="btn"><i class="fas fa-search"></i></button>
+            </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div id="view-markdown" class="col-lg-6">
                         <textarea name="content" class="form-control" id="inputContent" rows="25"
                                   placeholder="Write your content here. You can use Markdown and VPSL."
                                   required>${latestRevision.contents}</textarea>
                 </div>
-                <div class="col-lg-6">
+                <div id="view-preview" class="col-lg-6">
                     <div id="preview">
                         <div class="empty-list">
                             Type something and a cool preview will show up here
