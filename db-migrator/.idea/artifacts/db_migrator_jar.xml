@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="db-migrator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/db_migrator_jar</output-path>
+    <root id="archive" name="db-migrator.jar">
+      <element id="module-output" name="db-migrator" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.23.1/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
