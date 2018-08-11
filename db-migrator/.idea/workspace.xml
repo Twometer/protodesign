@@ -7,36 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="061831a9-8e41-46b4-ba4a-a083988b4bff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/theme/ThemeManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webapp/web/vendor/bootstrap.dark.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webapp/web/vendor/bootstrap.default.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webapp/web/vendor/bootstrap.ice.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webapp/web/vendor/bootstrap.simplex.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webapp/web/vendor/bootstrap.sketchy.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/db/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/db/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/AdminServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/CreateProtocolServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/CreateProtocolServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/CreateRevisionServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/CreateRevisionServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/DashboardServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/DashboardServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/EditProtocolServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/EditProtocolServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/HistoryServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/HistoryServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/MyAccountServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/MyAccountServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/ViewProtocolServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/de/twometer/protodesign/servlet/ViewProtocolServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/account.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/account.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/create.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/create.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/createRevision.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/createRevision.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/edit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/edit.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/history.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/register.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/vdps.html" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/vdps.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/vendor/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/vendor/bootstrap.bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/web/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/web/view.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,10 +20,11 @@
     <session id="1356073330">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -81,7 +53,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/twometer/protodesign/dbmigrator/DatabaseMigratorMain.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -126,9 +98,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="444" />
-    <option name="y" value="394" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="316" />
+    <option name="y" value="-8" />
     <option name="width" value="896" />
     <option name="height" value="722" />
   </component>
@@ -138,7 +110,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -156,6 +127,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -220,24 +192,24 @@
       <workItem from="1533906850529" duration="466000" />
       <workItem from="1533907352082" duration="601000" />
       <workItem from="1533908054097" duration="1124000" />
+      <workItem from="1533913763257" duration="14000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2191000" />
+    <option name="totallyTimeSpent" value="2205000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -249,6 +221,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
