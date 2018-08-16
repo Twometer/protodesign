@@ -104,4 +104,5 @@
         crossorigin="anonymous"></script>
 <script src="js/livepreview.js"></script>
 <script src="js/responsive.js"></script>
+<script src="js/editor.js"></script>
 </html>
