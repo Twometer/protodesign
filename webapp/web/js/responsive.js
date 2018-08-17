@@ -2,9 +2,9 @@ var inResponsiveMode = false;
 var threshold = 576;
 var initialStates = [];
 
-window.onresize = function (ev) {
+$(window).resize(function (ev) {
     checkForUpdate();
-};
+});
 
 
 initialize();

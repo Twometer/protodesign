@@ -1,8 +1,8 @@
 var contentCtl = $("#inputContent");
 var previewCtl = $("#preview");
 var placeholder = previewCtl.html();
-var inResponsiveMode = true;
-var threshold = 992;
+var previewInResponsiveMode;
+var previewThreshold = 992;
 var showPreview = false;
 
 window.onresize = function (ev) {
@@ -20,6 +20,11 @@ contentCtl.on('input', function (e) {
 $(reload());
 checkViewSwitcher();
 updateView();
+
+$(window).resize(function () {
+    checkViewSwitcher();
+    updateView();
+});
 
 var lastVal;
 
@@ -46,17 +51,16 @@ function scrollUpdate() {
 }
 
 function checkViewSwitcher() {
-    if (window.innerWidth < threshold && !inResponsiveMode) {
-        inResponsiveMode = true;
-        updateButtons();
-    } else if (window.innerWidth >= threshold && inResponsiveMode) {
-        inResponsiveMode = false;
-        updateButtons();
+    if (window.innerWidth < previewThreshold) {
+        previewInResponsiveMode = true;
+    } else if (window.innerWidth >= previewThreshold) {
+        previewInResponsiveMode = false;
     }
+    previewUpdateButtons();
 }
 
-function updateButtons() {
-    if (inResponsiveMode) {
+function previewUpdateButtons() {
+    if (previewInResponsiveMode) {
         $("#view-switcher").show();
         updateView();
     } else {
@@ -67,7 +71,7 @@ function updateButtons() {
 }
 
 function updateView() {
-    if(!inResponsiveMode) return;
+    if(!previewInResponsiveMode) return;
     if(showPreview){
         $("#view-markdown").hide();
         $("#view-preview").show();
