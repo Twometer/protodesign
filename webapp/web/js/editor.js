@@ -34,6 +34,7 @@ function insertText(text, insertion, idx) {
 }
 
 $content.bind('keydown', function (e) {
+    var $this = $(this);
     if (e.key === "Enter") {
         e.preventDefault();
         var idx = $(this).prop('selectionStart');
@@ -46,33 +47,31 @@ $content.bind('keydown', function (e) {
         $content.val(function (i, text) {
             return insertText(text, ins, idx);
         });
-        $(this).prop('selectionStart', idx + ins.length);
-        $(this).prop('selectionEnd', idx + ins.length);
+        $this.prop('selectionStart', idx + ins.length);
+        $this.prop('selectionEnd', idx + ins.length);
     } else if (brackets.hasOwnProperty(e.key)) {
         e.preventDefault();
+        var idx = $this.prop('selectionStart');
         $content.val(function (i, text) {
-            return text + e.key + brackets[e.key];
+            return insertText(text, e.key + brackets[e.key], idx);
         });
-        $this = $(this);
-        $this.prop('selectionStart', function (i, t) {
-            return t - 1;
-        });
-        $this.prop('selectionEnd', function (i, t) {
-            return t - 1;
-        });
+        $this.prop('selectionStart', idx + 1);
+        $this.prop('selectionEnd', idx + 1);
     } else if (Object.values(brackets).indexOf(e.key) >= 0) {
         if ($(this).val()[$(this).prop('selectionStart')] === e.key) {
             e.preventDefault();
+            var X = 0;
             $this.prop('selectionStart', function (i, t) {
-                return t + 1;
+                X = t;
+                return X + 1;
             });
             $this.prop('selectionEnd', function (i, t) {
-                return t + 1;
+                return X + 1;
             });
         }
     } else if (e.keyCode === 9) {
         e.preventDefault();
-        var idx = $(this).prop('selectionStart');
+        var idx = $this.prop('selectionStart');
         var indent = findIndentation(idx);
         var indentString = "";
         for (var i = indent + 1; i < 4; i++) {
@@ -81,7 +80,7 @@ $content.bind('keydown', function (e) {
         $content.val(function (i, text) {
             return insertText(text, indentString, idx);
         });
-        $(this).prop('selectionStart', idx + indentString.length);
-        $(this).prop('selectionEnd', idx + indentString.length);
+        $this.prop('selectionStart', idx + indentString.length);
+        $this.prop('selectionEnd', idx + indentString.length);
     }
 });
