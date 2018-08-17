@@ -20,6 +20,10 @@ function findIndentation(currentIdx) {
     return indent;
 }
 
+function insertText(text, insertion, idx) {
+    return text.substring(0, idx) + insertion + text.substring(idx);
+}
+
 $content.bind('keydown', function (e) {
     if (e.key === "Enter") {
         e.preventDefault();
@@ -29,9 +33,12 @@ $content.bind('keydown', function (e) {
         for (var i = 0; i < indent; i++) {
             indentString += " ";
         }
+        var ins = "\n" + indentString;
         $content.val(function (i, text) {
-            return text + "\n" + indentString;
+            return insertText(text, ins, idx);
         });
+        $(this).prop('selectionStart', idx + ins.length);
+        $(this).prop('selectionEnd', idx + ins.length);
     } else if (brackets.hasOwnProperty(e.key)) {
         e.preventDefault();
         $content.val(function (i, text) {
