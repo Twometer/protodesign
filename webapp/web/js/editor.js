@@ -7,6 +7,15 @@ var brackets = {
     '<': '>'
 };
 
+var hitSubmit = false;
+$("form").submit(function () {
+    hitSubmit = true;
+});
+window.onbeforeunload = function () {
+    if(!hitSubmit)
+        return "Unsaved changes may not be saved";
+};
+
 function findIndentation(currentIdx) {
     currentIdx -= 1;
     var val = $content.val();
