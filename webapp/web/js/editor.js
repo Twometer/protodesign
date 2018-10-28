@@ -8,11 +8,13 @@ var brackets = {
 };
 
 var hitSubmit = false;
+var isDirty = false;
+
 $("form").submit(function () {
     hitSubmit = true;
 });
 window.onbeforeunload = function () {
-    if(!hitSubmit)
+    if (!hitSubmit && isDirty)
         return "Unsaved changes may not be saved";
 };
 
@@ -41,6 +43,17 @@ function findIndentation(currentIdx) {
 function insertText(text, insertion, idx) {
     return text.substring(0, idx) + insertion + text.substring(idx);
 }
+
+$content.bind('input propertychange', function () {
+    isDirty = true;
+    if ($content.val().includes('^|')) {
+        var selStart = $content.prop("selectionStart");
+        var selEnd = $content.prop("selectionEnd");
+        $content.val($content.val().replace('^|', '↑'));
+        $content.prop("selectionStart", selStart - 1);
+        $content.prop("selectionEnd", selEnd - 1);
+    }
+});
 
 $content.bind('keydown', function (e) {
     var $this = $(this);

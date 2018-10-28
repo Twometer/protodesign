@@ -15,6 +15,8 @@ public class FormatServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         long userId = SessionManager.getUser(req);
         if (userId == 0) {
             resp.sendError(401);

@@ -19,6 +19,8 @@ public class MyAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
         forwardDocument(req, resp, user, -1, "");
@@ -26,6 +28,8 @@ public class MyAccountServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
 

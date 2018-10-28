@@ -28,6 +28,8 @@ public class EditProtocolServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String id_s = req.getParameter("id");
         long id;
         try {
@@ -51,6 +53,8 @@ public class EditProtocolServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         try {
             User user = SessionManager.tryAuthenticate(req, resp);
             if (user == null) return;

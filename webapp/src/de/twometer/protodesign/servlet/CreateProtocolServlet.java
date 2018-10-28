@@ -23,6 +23,8 @@ import java.util.Random;
 public class CreateProtocolServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         User user = SessionManager.tryAuthenticate(req, resp);
         if(user != null) {
             req.setAttribute("username", user.email);
@@ -33,6 +35,8 @@ public class CreateProtocolServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         try {
             User user = SessionManager.tryAuthenticate(req, resp);
             if(user == null) return;

@@ -21,6 +21,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         long userId = SessionManager.getUser(req);
         if (Objects.equals(req.getParameter("ref"), "logoff")) {
             SessionManager.logoffUser(req);
@@ -40,6 +42,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         if (email != null && password != null && email.trim().length() > 0 && password.trim().length() > 0) {

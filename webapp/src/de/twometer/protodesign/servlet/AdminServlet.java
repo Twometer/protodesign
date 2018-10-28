@@ -16,6 +16,8 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
         if (!SessionManager.getAdminAccounts().contains(user.email)) {
@@ -27,6 +29,8 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         User user = SessionManager.tryAuthenticate(req, resp);
         if (user == null) return;
         if (!SessionManager.getAdminAccounts().contains(user.email)) {
