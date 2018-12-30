@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/register.css">
 </head>
 <body class="text-center">
-<form class="form-register" method="post" action="${pageContext.request.contextPath}/register">
+<form class="form-register" method="post" action="/register">
     <img class="mb-4" src="assets/logo.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Register new account</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
@@ -49,7 +49,7 @@
         <p class="username-error">Please enter matching passwords</p>
     </c:if>
     <div class="checkbox mb-3 text-center">
-        <a href="${pageContext.request.contextPath}/login">Already have an account?</a>
+        <a href="/login">Already have an account?</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Create account</button>
     <p class="mt-5 mb-3 text-muted">&copy; ${year} Twometer Applications</p>

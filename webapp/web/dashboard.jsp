@@ -26,8 +26,8 @@
 
 <header>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard">
-            <img src="${pageContext.request.contextPath}/assets/logo.png" width="30" height="30"
+        <a class="navbar-brand" href="/dashboard">
+            <img src="/assets/logo.png" width="30" height="30"
                  class="d-inline-block align-top" alt="">
             Protodesign
         </a>
@@ -38,9 +38,9 @@
                        aria-haspopup="true"
                        aria-expanded="false"><i class="fas fa-user mr-2"></i>${username}</a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/account">My account</a>
+                        <a class="dropdown-item" href="/account">My account</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/login?ref=logoff">Log off</a>
+                        <a class="dropdown-item" href="/login?ref=logoff">Log off</a>
                     </div>
                 </li>
             </ul>
@@ -53,12 +53,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="logo-header-text">Dashboard</h1>
-                <a href="${pageContext.request.contextPath}/create">
+                <a href="/create">
                     <button role="button" class="btn btn-primary float-right responsive" data-responsive-icon="fas fa-plus">Create new</button>
                 </a>
                 <jsp:useBean id="isAdmin" scope="request" type="java.lang.Boolean"/>
                 <c:if test="${isAdmin}">
-                    <a href="${pageContext.request.contextPath}/admin">
+                    <a href="/admin">
                         <button role="button" class="btn btn-link float-right responsive" data-responsive-icon="fas fa-cogs">Admin Panel</button>
                     </a>
                 </c:if>
@@ -68,7 +68,7 @@
     <div class="list-group">
         <jsp:useBean id="protocols" scope="request" type="java.util.List<de.twometer.protodesign.db.Protocol>"/>
         <c:forEach items="${protocols}" var="protocol">
-            <a href="${pageContext.request.contextPath}/view?id=${protocol.hexId}"
+            <a href="/view?id=${protocol.hexId}"
                class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">${protocol.title}</h5>

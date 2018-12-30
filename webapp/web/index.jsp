@@ -52,7 +52,7 @@
         <p>Made for teamwork: Design collaboration has never been this easy before.</p>
         <p>Made for productivity: All neccessary features such as version control and code highlighting are just one click away</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/login" role="button">Log in</a>
+            <a class="btn btn-primary btn-lg" href="/login" role="button">Log in</a>
         </p>
     </div>
 

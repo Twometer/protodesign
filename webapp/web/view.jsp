@@ -29,8 +29,8 @@
 <body>
 <header>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard">
-            <img src="${pageContext.request.contextPath}/assets/logo.png" width="30" height="30"
+        <a class="navbar-brand" href="/dashboard">
+            <img src="/assets/logo.png" width="30" height="30"
                  class="d-inline-block align-top" alt="">
             Protodesign
         </a>
@@ -41,9 +41,9 @@
                        aria-haspopup="true"
                        aria-expanded="false"><i class="fas fa-user mr-2"></i>${username}</a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/account">My account</a>
+                        <a class="dropdown-item" href="/account">My account</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="${pageContext.request.contextPath}/login?ref=logoff">Log off</a>
+                        <a class="dropdown-item" href="/login?ref=logoff">Log off</a>
                     </div>
                 </li>
             </ul>
@@ -55,13 +55,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="logo-header-text">${protocol.title}</h1>
-                <a href="${pageContext.request.contextPath}/createRevision?id=${protocol.hexId}">
+                <a href="/createRevision?id=${protocol.hexId}">
                     <button role="button" class="btn btn-primary float-right responsive" data-responsive-icon="fas fa-pencil-alt">Create revision</button>
                 </a>
-                <a href="${pageContext.request.contextPath}/edit?id=${protocol.hexId}">
+                <a href="/edit?id=${protocol.hexId}">
                     <button role="button" class="btn btn-link float-right responsive" data-responsive-icon="fas fa-cog">Edit</button>
                 </a>
-                <a href="${pageContext.request.contextPath}/history?id=${protocol.hexId}">
+                <a href="/history?id=${protocol.hexId}">
                     <button role="button" class="btn btn-link float-right responsive" data-responsive-icon="fas fa-history">View History</button>
                 </a>
             </div>
@@ -72,7 +72,7 @@
     <c:if test="${protocolRev.revisionNo != protocol.latestRevision}">
         <div class="alert alert-primary" role="alert">
             You are viewing an outdated revision. Click <a
-                href="${pageContext.request.contextPath}/view?id=${protocol.hexId}">here</a> for the latest
+                href="/view?id=${protocol.hexId}">here</a> for the latest
             revision.
         </div>
     </c:if>
