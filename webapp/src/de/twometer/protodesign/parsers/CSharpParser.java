@@ -17,7 +17,7 @@ public class CSharpParser implements IParser {
         boolean inSingleComment = false;
         boolean inBlockComment = false;
         boolean inString = false;
-        boolean schouldBeType = false;
+        boolean shouldBeType = false;
         boolean waitingEndOfType = false;
         int inStringTF = 0;
 
@@ -34,7 +34,7 @@ public class CSharpParser implements IParser {
             String typeKeyword = anyStartsAt(data, typeKeywords, i);
             if (keyword != null && state.closeTag == -1 && (isValidKeywordStarter(data, i)) && isValidKeywordEnd(data, i, keyword) && !state.inComment() && !state.inString) {
                 if(typeKeyword != null && !state.waitingEndOfType)
-                    state.schouldBeType = true;
+                    state.shouldBeType = true;
                 output.append(buildHtmlTag("csharp-keyword", true));
                 state.closeTag = i + keyword.length() - 1;
             }
@@ -73,9 +73,9 @@ public class CSharpParser implements IParser {
                 state.waitingEndOfType = false;
                 output.append(buildHtmlTag("csharp-datatype", false));
             }
-            if(data[i] == ' ' && state.schouldBeType){
+            if(data[i] == ' ' && state.shouldBeType){
                 output.append(buildHtmlTag("csharp-datatype", true));
-                state.schouldBeType = false;
+                state.shouldBeType = false;
                 state.waitingEndOfType = true;
             }
         });

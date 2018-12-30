@@ -2,16 +2,21 @@ package de.twometer.protodesign.parsers;
 
 import de.twometer.protodesign.util.CodeScanner;
 
-import static de.twometer.protodesign.util.ParserUtils.buildHtmlTag;
-import static de.twometer.protodesign.util.ParserUtils.startsAt;
+import static de.twometer.protodesign.util.ParserUtils.*;
 
 public class VPSLParser implements IParser {
 
     private class State {
         boolean inDataType = false;
-        boolean inComment = false;
+        boolean inSingleComment = false;
+        boolean inBlockComment = false;
         boolean inCondition = false;
+        boolean inDependency = false;
         int datatypeApply = -1;
+
+        boolean inComment() {
+            return inSingleComment || inBlockComment;
+        }
     }
 
     @Override
@@ -22,9 +27,29 @@ public class VPSLParser implements IParser {
                 state.inDataType = true;
                 state.datatypeApply = i + "&lt;".length();
             }
-            if (!state.inDataType && (data[i] == '[' || data[i] == '{') && (i == 0 || (data[i - 1] == '>' || data[i - 1] == ';' || data[i - 1] == '\n'))) {
+            if (!state.inDataType && (data[i] == '[' || data[i] == '{') && (i == 0 || (data[i - 1] == '>' || data[i - 1] == ';' || data[i - 1] == '\n') || data[i - 1] == ' ' || data[i - 1] == '\t')) {
                 state.inDataType = true;
                 state.datatypeApply = i + 1;
+            }
+            if (startsAt(data, "//", i) && !state.inSingleComment) {
+                state.inSingleComment = true;
+                output.append(buildHtmlTag("vpsl-comment", true));
+            }
+            if (startsAt(data, "@", i) && !state.inComment()) {
+                state.inDependency = true;
+                output.append(buildHtmlTag("vpsl-annotation", true));
+            }
+            if (startsAt(data, "/*", i) && !state.inBlockComment) {
+                state.inBlockComment = true;
+                output.append(buildHtmlTag("vpsl-comment", true));
+            }
+            if (state.inDependency && (data[i] == '\n' || data[i] == '\r')) {
+                state.inDependency = false;
+                output.append(buildHtmlTag("vpsl-annotation", false));
+            }
+            if (state.inSingleComment && (data[i] == '\n' || data[i] == '\r')) {
+                state.inSingleComment = false;
+                output.append(buildHtmlTag("vpsl-comment", false));
             }
             if (state.inDataType && state.datatypeApply == i) {
                 output.append(buildHtmlTag("vpsl-datatype", true));
@@ -34,14 +59,9 @@ public class VPSLParser implements IParser {
                 output.append(buildHtmlTag(null, false));
             }
 
-            if (!state.inComment && data[i] == '\'') {
-                output.append(buildHtmlTag("vpsl-comment", true));
-                state.inComment = true;
-            }
-
-            if (state.inComment && data[i] == '\n') {
-                output.append(buildHtmlTag(null, false));
-                state.inComment = false;
+            if (endsAt(data, "*/", i) && state.inBlockComment) {
+                state.inBlockComment = false;
+                output.append(buildHtmlTag("vpsl-comment", false));
             }
 
             if (!state.inCondition && i > 0 && data[i] == '(' && data[i - 1] == '(') {
