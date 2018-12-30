@@ -76,16 +76,15 @@ public class EditProtocolServlet extends HttpServlet {
                 protocol.lastActive = System.currentTimeMillis();
                 DbAccess.getProtocolDao().update(protocol);
 
-                List<ProtocolShareInfo> shareInfos = new ArrayList<>();
-                shareInfos.add(new ProtocolShareInfo(protocol.protocolId, user.userId));
-
-                for (String s : shared.split(";")) {
-                    long sharedUser = UserManager.findUser(s);
-                    if (sharedUser != 0) shareInfos.add(new ProtocolShareInfo(protocol.protocolId, sharedUser));
+                List<ProtocolShareInfo> newShareData = new ArrayList<>();
+                newShareData.add(new ProtocolShareInfo(protocol.protocolId, protocol.ownerId)); // The owner is always in this list
+                for (String s : parseSharedAccounts(shared)) {
+                    long sharedUser = UserManager.findUser(s.trim());
+                    if (sharedUser != 0) newShareData.add(new ProtocolShareInfo(protocol.protocolId, sharedUser));
                 }
 
                 DbAccess.getProtocolShareInfoDao().delete(DbAccess.getProtocolShareInfoDao().queryForEq("protocolId", protocolId));
-                DbAccess.getProtocolShareInfoDao().create(shareInfos);
+                DbAccess.getProtocolShareInfoDao().create(newShareData);
 
                 resp.sendRedirect("view?id=" + Utils.toHex(protocolId));
             } else if (action.equalsIgnoreCase(ACTION_DELETE)) {
@@ -99,5 +98,10 @@ public class EditProtocolServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private String[] parseSharedAccounts(String shared) {
+        if (!shared.contains(";")) return new String[]{shared};
+        return shared.split(";");
     }
 }
