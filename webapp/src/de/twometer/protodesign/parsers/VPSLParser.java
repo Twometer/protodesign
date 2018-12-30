@@ -11,7 +11,7 @@ public class VPSLParser implements IParser {
         boolean inSingleComment = false;
         boolean inBlockComment = false;
         boolean inCondition = false;
-        boolean inDependency = false;
+        boolean inAnnotation = false;
         int datatypeApply = -1;
 
         boolean inComment() {
@@ -36,15 +36,15 @@ public class VPSLParser implements IParser {
                 output.append(buildHtmlTag("vpsl-comment", true));
             }
             if (startsAt(data, "@", i) && !state.inComment()) {
-                state.inDependency = true;
+                state.inAnnotation = true;
                 output.append(buildHtmlTag("vpsl-annotation", true));
             }
             if (startsAt(data, "/*", i) && !state.inBlockComment) {
                 state.inBlockComment = true;
                 output.append(buildHtmlTag("vpsl-comment", true));
             }
-            if (state.inDependency && (data[i] == '\n' || data[i] == '\r')) {
-                state.inDependency = false;
+            if (state.inAnnotation && (data[i] == '\n' || data[i] == '\r')) {
+                state.inAnnotation = false;
                 output.append(buildHtmlTag("vpsl-annotation", false));
             }
             if (state.inSingleComment && (data[i] == '\n' || data[i] == '\r')) {

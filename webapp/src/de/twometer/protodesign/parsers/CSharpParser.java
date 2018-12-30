@@ -17,6 +17,7 @@ public class CSharpParser implements IParser {
         boolean inSingleComment = false;
         boolean inBlockComment = false;
         boolean inString = false;
+        boolean inAnnotation = false;
         boolean shouldBeType = false;
         boolean waitingEndOfType = false;
         int inStringTF = 0;
@@ -33,7 +34,7 @@ public class CSharpParser implements IParser {
             String keyword = anyStartsAt(data, keywords, i);
             String typeKeyword = anyStartsAt(data, typeKeywords, i);
             if (keyword != null && state.closeTag == -1 && (isValidKeywordStarter(data, i)) && isValidKeywordEnd(data, i, keyword) && !state.inComment() && !state.inString) {
-                if(typeKeyword != null && !state.waitingEndOfType)
+                if (typeKeyword != null && !state.waitingEndOfType)
                     state.shouldBeType = true;
                 output.append(buildHtmlTag("csharp-keyword", true));
                 state.closeTag = i + keyword.length() - 1;
@@ -51,12 +52,22 @@ public class CSharpParser implements IParser {
                 output.append(buildHtmlTag("csharp-comment", false));
             }
 
+            if (!state.inAnnotation && i > 0 && data[i - 1] == '[' && !state.inComment()) {
+                state.inAnnotation = true;
+                output.append(buildHtmlTag("csharp-datatype", true));
+            }
+
             if (startsAt(data, "&quot;", i) && !state.inString && !state.inComment()) {
                 state.inString = true;
                 state.inStringTF = i + 8;
                 output.append(buildHtmlTag("csharp-string", true));
             }
             output.append(data[i]);
+            if (state.inAnnotation && i + 1 < data.length && data[i + 1] == ']' && !state.inComment()) {
+                state.inAnnotation = false;
+                output.append(buildHtmlTag("csharp-datatype", false));
+            }
+
             if (endsAt(data, "*/", i) && state.inBlockComment) {
                 state.inBlockComment = false;
                 output.append(buildHtmlTag("csharp-comment", false));
@@ -69,11 +80,11 @@ public class CSharpParser implements IParser {
                 output.append(buildHtmlTag("csharp-keyword", false));
                 state.closeTag = -1;
             }
-            if(!Character.isLetterOrDigit(data[i]) && state.waitingEndOfType){
+            if (!Character.isLetterOrDigit(data[i]) && state.waitingEndOfType) {
                 state.waitingEndOfType = false;
                 output.append(buildHtmlTag("csharp-datatype", false));
             }
-            if(data[i] == ' ' && state.shouldBeType){
+            if (data[i] == ' ' && state.shouldBeType) {
                 output.append(buildHtmlTag("csharp-datatype", true));
                 state.shouldBeType = false;
                 state.waitingEndOfType = true;
