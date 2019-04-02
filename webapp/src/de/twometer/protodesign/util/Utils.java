@@ -31,7 +31,7 @@ public class Utils {
     }
 
     public static void loginFailed(HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("login?ref=session");
+        resp.sendRedirect("/login?ref=session");
     }
 
     public static String formatMs(long ms) {

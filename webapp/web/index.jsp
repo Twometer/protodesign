@@ -13,9 +13,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Protodesign</title>
-    <link rel="icon" href="assets/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap.default.min.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/favicon.png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/bootstrap.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <style>
@@ -29,7 +29,7 @@
 <header>
     <nav class="navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
-            <img src="assets/logo.png" width="30" height="30"
+            <img src="${pageContext.request.contextPath}/assets/logo.png" width="30" height="30"
                  class="d-inline-block align-top" alt="">
             Protodesign
         </a>
@@ -52,7 +52,7 @@
         <p>Made for teamwork: Design collaboration has never been this easy before.</p>
         <p>Made for productivity: All neccessary features such as version control and code highlighting are just one click away</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/login" role="button">Log in</a>
+            <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/login" role="button">Log in</a>
         </p>
     </div>
 

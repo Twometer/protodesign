@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body class="text-center">
-<form class="form-login" method="post" action="/login">
+<form class="form-login" method="post" action="${pageContext.request.contextPath}/login">
     <img class="mb-4" src="assets/logo.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
@@ -41,7 +41,7 @@
         <p class="username-success">Your account has been created.</p>
     </c:if>
     <div class="checkbox mb-3 text-center">
-        <a href="/register">No account?</a>
+        <a href="${pageContext.request.contextPath}/register">No account?</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
     <p class="mt-5 mb-3 text-muted">&copy; ${year} Twometer Applications</p>
